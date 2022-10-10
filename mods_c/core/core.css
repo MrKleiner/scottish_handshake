@@ -1,0 +1,42 @@
+
+
+
+btn
+{
+	padding: 5px;
+	font-size: 15px;
+	background: #090A0D;
+	outline: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 5px;
+	user-select: none;
+}
+
+btn:hover
+{
+	background: #15181F;
+}
+
+btn:active
+{
+	background: #235D41;
+	outline-color: lime;
+}
+
+
+
+
+input[type='text']
+{
+	/* all: unset; */
+	color: white;
+	border: none;
+	border-radius: 4px;
+	background: black;
+	padding: 3px;
+	outline: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+input[type='text']:focus
+{
+	outline: 1px solid #1b8d4e;
+}

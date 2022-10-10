@@ -1,0 +1,1124 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"padding",
+				"padding-right\tproperty"
+			],
+			[
+				"compiled",
+				"compiled_events"
+			],
+			[
+				"reo",
+				"reordered_modules"
+			],
+			[
+				"zip",
+				"zipfile"
+			],
+			[
+				"fol",
+				"folders"
+			],
+			[
+				"path",
+				"path_resolver"
+			],
+			[
+				"add",
+				"add_libs"
+			],
+			[
+				"on",
+				"onefile"
+			],
+			[
+				"str",
+				"strip"
+			],
+			[
+				"read",
+				"read_text"
+			],
+			[
+				"css",
+				"css_buffer"
+			],
+			[
+				"ored",
+				"orderlibs"
+			],
+			[
+				"cfg_",
+				"cfg_json"
+			],
+			[
+				"encod",
+				"encoding"
+			],
+			[
+				"evalu",
+				"Evaluate"
+			],
+			[
+				"de",
+				"defs\tMethod"
+			],
+			[
+				"modules",
+				"modules_explicit"
+			],
+			[
+				"js",
+				"js_mods"
+			],
+			[
+				"compile",
+				"compile_folders"
+			],
+			[
+				"background",
+				"background\tproperty"
+			],
+			[
+				"wid",
+				"width\tproperty"
+			],
+			[
+				"fle",
+				"flex-end\talign-self"
+			],
+			[
+				"align-",
+				"align-self\tproperty"
+			],
+			[
+				"query",
+				"querySelector"
+			],
+			[
+				"remove",
+				"removeAttribute"
+			],
+			[
+				"set",
+				"setAttribute"
+			],
+			[
+				"reve",
+				"removeAttribute"
+			],
+			[
+				"outl",
+				"outline\tproperty"
+			],
+			[
+				"back",
+				"background\tproperty"
+			],
+			[
+				"backgrou",
+				"background-size\tproperty"
+			],
+			[
+				"flex",
+				"flex-start\talign-self"
+			],
+			[
+				"align",
+				"align-self\tproperty"
+			],
+			[
+				"tran",
+				"transform\tproperty"
+			],
+			[
+				"wi",
+				"width\tproperty"
+			],
+			[
+				"class",
+				"classList"
+			],
+			[
+				"q",
+				"querySelectorAll"
+			],
+			[
+				"get",
+				"getAttribute"
+			],
+			[
+				"marg",
+				"margin-top\tproperty"
+			],
+			[
+				"f",
+				"for\tfor (…) {…} (Improved Native For-Loop)"
+			],
+			[
+				"top",
+				"topayload"
+			],
+			[
+				"si",
+				"sides_payload"
+			],
+			[
+				"def",
+				"def\tFunction"
+			],
+			[
+				"ex",
+				"except"
+			],
+			[
+				"isla",
+				"island_index"
+			],
+			[
+				"margin",
+				"margin-left\tproperty"
+			],
+			[
+				"backgr",
+				"background-color\tproperty"
+			],
+			[
+				"ali",
+				"align-self\tproperty"
+			],
+			[
+				"obj",
+				"object-position\tproperty"
+			],
+			[
+				"backgro",
+				"background-image\tproperty"
+			],
+			[
+				"bor",
+				"border-top\tproperty"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"margi",
+				"margin-bottom\tproperty"
+			],
+			[
+				"outline",
+				"outline-color\tproperty"
+			],
+			[
+				"trans",
+				"transition\tproperty"
+			],
+			[
+				"font",
+				"font-size\tproperty"
+			],
+			[
+				"border",
+				"border-radius\tproperty"
+			],
+			[
+				"in",
+				"input\tTag"
+			],
+			[
+				"text",
+				"text-align\tproperty"
+			],
+			[
+				"tex",
+				"text-align\tproperty"
+			],
+			[
+				"flex-",
+				"flex-direction\tproperty"
+			],
+			[
+				"lizardvmf",
+				"lizardvmf_entity"
+			],
+			[
+				"lizard",
+				"lizardvmf_connections"
+			],
+			[
+				"output",
+				"output_name"
+			],
+			[
+				"vertices",
+				"vertices_plus"
+			],
+			[
+				"gro",
+				"groupid"
+			],
+			[
+				"try",
+				"try\tTry/Except"
+			],
+			[
+				"is",
+				"isinstance"
+			],
+			[
+				"visgroup",
+				"visgroupshown"
+			],
+			[
+				"selt",
+				"seltix_orbit"
+			],
+			[
+				"w",
+				"win32"
+			],
+			[
+				"hyper",
+				"hyper_u"
+			],
+			[
+				"location",
+				"location_id"
+			],
+			[
+				"toggle",
+				"toggleClass"
+			],
+			[
+				"comment",
+				"comments"
+			],
+			[
+				"config",
+				"config_path"
+			],
+			[
+				"conf",
+				"config_path"
+			],
+			[
+				"confg",
+				"config_path"
+			],
+			[
+				"active",
+				"active_evid"
+			],
+			[
+				"ove",
+				"overflow-y\tproperty"
+			],
+			[
+				"cate",
+				"category"
+			],
+			[
+				"e",
+				"etgt"
+			],
+			[
+				"plain",
+				"plaintext"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/custom/scottish_handshake/scottish_handshake/compiler_conf.json",
+			"settings":
+			{
+				"buffer_size": 2759,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/custom/source_tricks/source_tricks/source_tricks.js",
+			"settings":
+			{
+				"buffer_size": 50128,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/custom/source_tricks/source_tricks/htbin/manager.py",
+			"settings":
+			{
+				"buffer_size": 2797,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/baton/AppData/Roaming/Sublime Text 3/Packages/User/build_scott_handshake.sublime-build",
+			"settings":
+			{
+				"buffer_size": 159,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: Install Package",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 186.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/custom/scottish_handshake/scottish_handshake"
+	],
+	"file_history":
+	[
+		"/C/custom/source_tricks/source_tricks/source_tricks.js",
+		"/C/custom/source_tricks/source_tricks/tobase.py",
+		"/C/custom/authdb/sync_auth.json",
+		"/C/custom/source_tricks/source_tricks/script.js",
+		"/C/custom/source_tricks/source_tricks/htbin/manager.py",
+		"/C/custom/source_tricks/source_tricks/index.html",
+		"/C/custom/source_tricks/source_tricks/style.css",
+		"/C/Users/baton/AppData/Roaming/Sublime Text 3/Packages/User/build_scott_handshake.sublime-build",
+		"/C/Users/baton/Downloads/blender_foil-main/app/src/mods/dashboard/dashboard_events_bind.json",
+		"/C/custom/bootlegger/bootlegger/cgi/sync.py",
+		"/C/custom/bootlegger/bootlegger/sync_server.cmd",
+		"/C/custom/bootlegger/bootlegger/chunks/btg_fonts.js",
+		"/C/custom/bootlegger/bootlegger/chunks/btg_util.js",
+		"/C/custom/bootlegger/bootlegger/bootlegger.py",
+		"/C/custom/bootlegger/bootlegger/pepega.comp.js",
+		"/C/custom/bootlegger/bootlegger/builder.py",
+		"/C/custom/bootlegger/bootlegger/conf_test.json",
+		"/C/custom/bootlegger/bootlegger/test_sex.js",
+		"/C/custom/bootlegger/bootlegger/conf.json",
+		"/C/custom/bootlegger/bootlegger/bootlegger.js",
+		"/C/custom/bootlegger/bootlegger/artytest.py",
+		"/C/custom/pepega/pepega/mods/msg_lexer_ppg/msg_lexer_ppg.Message Tools.js",
+		"/C/custom/bootlegger/bootlegger/pep_header.js",
+		"/C/Users/baton/AppData/Local/Programs/Python/Python310/Lib/pathlib.py",
+		"/C/custom/pepega/pepega/mods_c/msg_crypto_ppg/msg_crypto_ppg.Message Tools.js",
+		"/C/custom/pepega/pepega/mods/msg_crypto_ppg/msg_crypto_ppg.Message Tools.js",
+		"/C/custom/bootlegger/bootlegger/conf.cf",
+		"/C/custom/bootlegger/bootlegger/conf.c",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/buttons.css",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/checkboxes.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/dropdowns.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/game_config_gameinfo/gameinfo_style.css",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/game_config_gameinfo/gameinfo_events_bind.json",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/game_config_gameinfo/gameinfo.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/game_config_gameinfo/content_mount.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/index.html",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/blfoil_core.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/tools/mod_maker.html",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/tools/game_config_game_info.html",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/tools/main_dashboard.html",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/core_event_listeners.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/core_events_bind.core.json",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/dashboard/dashboard_events_bind.json",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/dashboard/dashboard.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/modmaker/modmaker.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/skyboxer/skyboxer.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/modmaker/modmaker_events_bind.json",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/dropdowns.css",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/apis/panellum/pannellum.css",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/tools/skyboxer.html",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/skyboxer/skyboxer_main.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/skyboxer/skyboxer_style.css",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/utils/shared.py",
+		"/C/custom/xblah/Release/Tools/SkyboxPreviewer/index.html",
+		"/E/!webdesign/e6counter/stats.lizard",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/index.css",
+		"/E/!!Blend_Projects/scripts/wallworm4blender/cube_viewer/index.html",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/game_config_gameinfo/gameinfo_main.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/dashboard/dashboard_main.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/checkboxes_events_bind.core.json",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/checkboxes_style.css",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/configs/app/global/last_context.json",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/configs/lol.json",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/configs/app/projects/32/fast_config.json",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/configs/app/engines/engines_info.json",
+		"/E/!!Blend_Projects/scripts/wallworm4blender/blender_foil/dev/vtfimge.py",
+		"/E/!!Blend_Projects/scripts/wallworm4blender/blender_foil/dev/temp.py",
+		"/E/!!Blend_Projects/scripts/wallworm4blender/blender_foil/dev/syntax.txt",
+		"/E/!!Blend_Projects/scripts/wallworm4blender/blender_foil/dev/schema.txt",
+		"/E/!!Blend_Projects/scripts/wallworm4blender/blender_foil/dev/concave_to_convex.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/configs/blpe_main.json",
+		"/E/!!Blend_Projects/scripts/wallworm4blender/blender_foil/dev/blpe_maker.py",
+		"/C/Users/DrHax/AppData/Local/Programs/Python/Python310/Lib/site-packages/fgd_parser/__init__.py",
+		"/C/Users/DrHax/AppData/Local/Programs/Python/Python310/Lib/site-packages/fgd_parser/fgd_parser.py",
+		"/C/Users/DrHax/AppData/Local/Programs/Python/Python310/Lib/site-packages/fgd_parser/fgd_classes.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/mods/vmf_export/vmf_exporter.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/__init__.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/blfoil_appconnect.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/installer.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/dashboard/dashboard_style.css",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/modmaker/modmaker_style.css",
+		"/E/!webdesign/e6counter/stats.lizards",
+		"/E/!webdesign/e6counter/c6.py",
+		"/E/!webdesign/e6counter/lastcookie.lizards",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/index.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/simple_menus.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/buttons.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/simple_menus_style.css",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/base_style.css",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/modmaker/modmaker_main.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/dropdowns_events_bind.core.json",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/core/lizard_toybox.js",
+		"/E/shop/v/shop.org",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/skyboxer/appgui_skyboxer_main.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/dashboard/appgui_dashboard_main.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/mods/app/dashboard/app_dashboard.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/mods/app/modmaker/app_modmaker.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/mods/main_app_core/appgui_main_core.js",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/mods/app/gameinfoman/gameinfoman.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/fdef/funcgen.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/fdef/funcdef.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/utils/lizard_tail/reconstructor.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/utils/lizard_tail/lizard_tail.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/runner.bat",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/utils/lizard_vmf/lizardvmf.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/mods/vmf_export/entity_maker.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/mods/vmf_export/brush_ents.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/mods/vmf_export/do_export.py",
+		"/E/!!Blend_Projects/scripts/sockets/socket_client.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/mods/skyboxer/skybox_maker.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/utils/lizard_scales/lizard_scales.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/app/src/app/foil_utils.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/ui.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/utils/lizard_vmf/reconstructor.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/utils/lizard_vmf/parser.py",
+		"/E/!!Blend_Projects/scripts/wallworm4blender/blender_foil/blender_foil/vtfimge.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/subproj/blfoil_addon.sublime-project",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil_old/logic.py",
+		"/E/!!Blend_Projects/scripts/wallworm4blender/blender_foil/other/dev/lizardvmf.py",
+		"/E/!webdesign/source_tricks/source_tricks/assets/tmp/style.css",
+		"/E/!webdesign/source_tricks/source_tricks/assets/tmp/script.js",
+		"/E/!webdesign/source_tricks/source_tricks/assets/tmp/sp.html",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/2.92/scripts/addons/MSPlugin/__init__.py",
+		"/E/!!Blend_Projects/scripts/wallworm4blender/blender_foil/blender_foil/mods/vmf_export/vmf_exporter.py",
+		"/C/Users/DrHax/AppData/Local/Programs/Python/Python39/Lib/site-packages/fgd_parser/fgd_classes.py",
+		"/C/Users/DrHax/AppData/Local/Programs/Python/Python39/Lib/site-packages/fgd_parser/fgd_parser.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/blender_foil/configs/newtr.py",
+		"/C/Users/DrHax/AppData/Roaming/Blender Foundation/Blender/3.1/scripts/addons/img_to_clp/__init__.py"
+	],
+	"find":
+	{
+		"height": 29.0
+	},
+	"find_in_files":
+	{
+		"height": 160.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"lizard.atob",
+			"lizard.btoa",
+			"ctg_name_appl",
+			"name_apply",
+			"article_co",
+			"side",
+			"isvdccode",
+			"body",
+			"article_c",
+			"tut_step"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/custom/scottish_handshake/scottish_handshake/compiler_conf.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2759,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								233,
+								233
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 420.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/custom/source_tricks/source_tricks/source_tricks.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 50128,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								176,
+								176
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/custom/source_tricks/source_tricks/htbin/manager.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2797,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2797,
+								2797
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 960.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/C/Users/baton/AppData/Roaming/Sublime Text 3/Packages/User/build_scott_handshake.sublime-build",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 159,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								138,
+								138
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										138,
+										139
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/double_quote.png",
+										"brackethighlighter.quote"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										10,
+										11
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 56.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SFTP":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 34.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/User/build_scott_handshake.sublime-build",
+	"project": "scott_handshake.sublime-project",
+	"replace":
+	{
+		"height": 54.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 193.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

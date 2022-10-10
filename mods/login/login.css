@@ -1,0 +1,23 @@
+
+
+
+
+
+login #login_box
+{
+	display: flex;
+	flex-direction: column;
+	width: 20vw;
+	border-radius: 20px;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+
+/* Core */
+@import url('mods_c/core/core.css');
+
+/* Home */
+@import url('mods_c/home/home.css');
+
+/*sys chooser*/
+@import url('mods_c/sys_chooser/sys_choose.css');
+
+/*video manager admin panel*/
+@import url('mods_c/vidman/vidman.css');
+
+/* login */
+@import url('mods_c/login/login.css');
