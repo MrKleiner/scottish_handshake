@@ -11,18 +11,38 @@ html
 	background: #110f16;
 	color: white;
 	font-family: 'Arial';
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
 	/*flex-grow: 1;*/
+/*	height: -webkit-fill-available;
+	height: -moz-available;*/
 }
 
 body
 {
 	display: flex;
 	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
 	/*flex-grow: 1;*/
+/*	height: -webkit-fill-available;
+	height: -moz-available;*/
+}
+
+
+#pages_pool
+{
+	padding-top: 45px;
+	display: flex;
+	flex-grow: 1;
 }
 
 #app_topbar
 {
+	width: 100%;
+	position: fixed;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -67,12 +87,13 @@ body
 	font-size: 14px;
 }
 
+
 body[logged_in="true"] #nav_login
 {
 	display: none;
 }
 
-body[logged_in="true"] #nav_sign_out
+body[logged_in="true"] #nav_sign_out, body[logged_in="true"] #nav_enter_edit
 {
 	display: flex;
 }
@@ -83,7 +104,7 @@ body[logged_in="false"] #nav_login
 	display: flex;
 }
 
-body[logged_in="false"] #nav_sign_out
+body[logged_in="false"] #nav_sign_out, body[logged_in="false"] #nav_enter_edit
 {
 	display: none;
 }

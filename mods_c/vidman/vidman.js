@@ -19,6 +19,11 @@ if (!window.bootlegger.vidman){window.bootlegger.vidman={}};
 
 window.bootlegger.vidman.load_module = async function ()
 {
+	await window.bootlegger.core.sysloader('vidman');
+}
+
+window.bootlegger.vidman.load_admin = async function ()
+{
 	await window.bootlegger.core.sysloader('vidman_admin');
 	window.bootlegger.vidman.load_vid_pool_srcs()
 }

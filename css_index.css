@@ -8,8 +8,9 @@
 /*sys chooser*/
 @import url('mods_c/sys_chooser/sys_choose.css');
 
-/*video manager admin panel*/
+/* video manager */
 @import url('mods_c/vidman/vidman.css');
+@import url('mods_c/vidman/vidman_admin.css');
 
 /* login */
 @import url('mods_c/login/login.css');

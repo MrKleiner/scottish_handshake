@@ -1,3 +1,4 @@
 {
-	"auth_db_loc": "C:/custom/authdb/accounts_auth.json"
+	"auth_db_loc": "C:/custom/authdb/accounts_auth.json",
+	"clearance_db": "C:/custom/authdb/ctrl_clearance.json"
 }

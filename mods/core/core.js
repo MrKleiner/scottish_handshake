@@ -7,7 +7,7 @@ window.print = console.log;
 // a bunch of binaries (webp) where every name is sha256 of the path in the RAID pool
 
 // dev temp
-window.localStorage.setItem('auth_token', '23849e61d01d323826345f22d6e0b3040d87b8c9d24ef7ad122ec805adac3590');
+// window.localStorage.setItem('auth_token', '23849e61d01d323826345f22d6e0b3040d87b8c9d24ef7ad122ec805adac3590');
 
 
 // load a specified system
@@ -55,7 +55,7 @@ $(document).ready(function(){
 });
 
 
-$this.py_get = async function(md=null, prms={})
+$this.py_get = async function(md='manager.py', prms={})
 {
 	print('do py get')
 	prms['auth'] = window.localStorage.getItem('auth_token') || 'ftp';
@@ -92,7 +92,7 @@ $this.py_get = async function(md=null, prms={})
 
 
 
-$this.py_send = async function(md=null, prms={}, payload='')
+$this.py_send = async function(md='manager.py', prms={}, payload='')
 {
 	prms['auth'] = window.localStorage.getItem('auth_token') || 'ftp';
 

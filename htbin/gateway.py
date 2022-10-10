@@ -38,13 +38,16 @@ sys.stdout.buffer.write(b'Content-Type: application/octet-stream\n\n')
 # server root folder
 server_root = Path(__file__).parent.parent
 
-# auth_db root
-auth_db = json.loads(Path('C:/custom/authdb/ctrl_clearance.json').read_bytes())
-
+# basic server meta
 server = {
 	'root': server_root,
 	'cfg': json.loads((server_root / 'htbin' / 'server_config.json').read_bytes())
 }
+
+# auth_db root
+auth_db = json.loads(Path(server['cfg']['clearance_db']).read_bytes())
+
+
 
 # =============================================
 #					Setup

@@ -2,6 +2,26 @@ document.addEventListener('click', tr_event => {
 
 
 	// ==========================================
+	// 	home home
+	// ==========================================
+
+	if (event.target.closest('#app_topbar #nav_login')){window.bootlegger.login.load_module()}
+	if (event.target.closest('#app_topbar #nav_sign_out')){window.bootlegger.login.logout()}
+	if (event.target.closest('#app_topbar #nav_enter_edit')){window.bootlegger.vidman.load_admin()}
+
+
+
+
+	// ==========================================
+	// 	login login
+	// ==========================================
+
+	if (event.target.closest('login #intrusion')){window.bootlegger.login.intrusion()}
+
+
+
+
+	// ==========================================
 	// 	sys_chooser syschoser
 	// ==========================================
 

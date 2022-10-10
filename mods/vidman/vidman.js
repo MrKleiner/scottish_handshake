@@ -15,6 +15,11 @@
 
 $this.load_module = async function ()
 {
+	await $all.core.sysloader('vidman');
+}
+
+$this.load_admin = async function ()
+{
 	await $all.core.sysloader('vidman_admin');
 	$this.load_vid_pool_srcs()
 }

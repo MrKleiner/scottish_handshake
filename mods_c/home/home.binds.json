@@ -2,21 +2,21 @@
 	"click": [
 		{
 			"selector": "#app_topbar #nav_login",
-			"function": "$all.login.load_module",
+			"function": "window.bootlegger.login.load_module",
 			"pass_event": false,
 			"pass_element": false,
 			"pass_params": ""
 		},
 		{
 			"selector": "#app_topbar #nav_sign_out",
-			"function": "$all.login.logout",
+			"function": "window.bootlegger.login.logout",
 			"pass_event": false,
 			"pass_element": false,
 			"pass_params": ""
 		},
 		{
 			"selector": "#app_topbar #nav_enter_edit",
-			"function": "$all.vidman.load_admin",
+			"function": "window.bootlegger.vidman.load_admin",
 			"pass_event": false,
 			"pass_element": false,
 			"pass_params": ""
