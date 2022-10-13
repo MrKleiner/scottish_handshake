@@ -20,6 +20,23 @@ if (!window.bootlegger.vidman){window.bootlegger.vidman={}};
 window.bootlegger.vidman.load_module = async function ()
 {
 	await window.bootlegger.core.sysloader('vidman');
+	// display folders
+	const folders = JSON.parse(
+		await window.bootlegger.core.py_get(
+			'gateway.py',
+			{
+				'action': 'get_vid_pool_paths'
+			}
+		)
+	)
+	
+	// append the folders
+	const pool_entries = $('vidman #tree_pool_entries');
+	for (var fld of folders){
+		pool_entries.append(`
+			<div fullpath="${fld.path}" class="entry_folder">${fld.name}</div>
+		`)
+	}
 }
 
 window.bootlegger.vidman.load_admin = async function ()
@@ -44,7 +61,9 @@ window.bootlegger.vidman.load_vid_pool_srcs = async function()
 	for (var src_entry of pool){
 		spool.prepend(`
 			<div class="srcs_pool_entry">
-				<input type="text" value="${src_entry}">
+				<input class="display_name" placeholder="Display Name" type="text" value="${src_entry.name}">
+				<div class="pool_entry_separator">:</div>
+				<input class="full_path" placeholder="Full Path (absolute)" type="text" value="${src_entry.path}">
 				<img draggable="false" src="../assets/rubbish.png">
 			</div>
 		`)
@@ -59,8 +78,11 @@ window.bootlegger.vidman.save_vid_pool_srcs = async function()
 {
 	var srcs_entries = [];
 
-	for (var en of document.querySelectorAll('vman_admin .srcs_pool_entry input')){
-		srcs_entries.push(en.value);
+	for (var en of document.querySelectorAll('vman_admin .srcs_pool_entry')){
+		srcs_entries.push({
+			'name': en.querySelector('input.display_name').value,
+			'path': en.querySelector('input.full_path').value
+		});
 	}
 
 	const dosave = await window.bootlegger.core.py_send(
@@ -79,7 +101,9 @@ window.bootlegger.vidman.add_src_pool_entry = function()
 {
 	$('vman_admin #vma_srcs_pool').prepend(`
 		<div class="srcs_pool_entry">
-			<input draggable="false" type="text" value="/raid">
+			<input class="display_name" placeholder="Display Name" type="text">
+			<div class="pool_entry_separator">:</div>
+			<input class="full_path" placeholder="Full Path (absolute)" type="text" value="/raid">
 			<img draggable="false" src="../assets/rubbish.png">
 		</div>
 	`)
@@ -92,7 +116,37 @@ window.bootlegger.vidman.del_src_pool_entry = function(elem)
 }
 
 
+window.bootlegger.vidman.list_vids = async function(etgt)
+{
+	const vids_list = JSON.parse(
+		await window.bootlegger.core.py_get('gateway.py', {
+			'action': 'vdman_list_pool',
+			'fld_path': etgt.getAttribute('fullpath')
+		})
+	)
 
+	print(vids_list)
+
+	window.preview_queue = [];
+
+	$('vidman #content_pool #content_pool_vids').empty();
+
+	for (var vid of vids_list){
+		var vid_e = $(`
+			<div class="vid_entry" vidpath="${vid.path}">
+				<div class="vid_entry_preview"></div>
+				<div class="vid_entry_caption">${vid.name}</div>
+			</div>
+		`)
+
+		$('vidman #content_pool #content_pool_vids').append(vid_e)
+
+		window.preview_queue.push({
+			'vidpath': vid.path,
+			'elem': vid_e
+		})
+	}
+}
 
 
 

@@ -20,6 +20,13 @@
 			"pass_event": false,
 			"pass_element": false,
 			"pass_params": ""
+		},
+		{
+			"selector": "#tree_pool_entries .entry_folder",
+			"function": "window.bootlegger.vidman.list_vids",
+			"pass_event": false,
+			"pass_element": true,
+			"pass_params": ""
 		}
 	]
 }

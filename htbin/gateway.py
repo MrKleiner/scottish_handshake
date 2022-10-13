@@ -90,7 +90,10 @@ if url_params.get('action') and url_params.get('auth'):
 		# no parse, no whatever
 		sys.stdout.buffer.write(vdman_upd_pool_paths(url_params, byte_data, server).encode())
 
-	if url_params['action'] == 'get_vid_pool_paths' and 'vdman' in auth_cl:
+	#
+	# Public
+	#
+	if url_params['action'] == 'get_vid_pool_paths':
 		# returns the video pool sources catalogue as json
 		sys.stdout.buffer.write(vdman_get_pool_paths(url_params, byte_data, server))
 
@@ -100,6 +103,14 @@ if url_params.get('action') and url_params.get('auth'):
 	if url_params['action'] == 'login':
 		# returns the video pool sources catalogue as json
 		sys.stdout.buffer.write(do_login_token(url_params, byte_data, server).encode())
+
+	#
+	# list videos. Public.
+	#
+	if url_params['action'] == 'vdman_list_pool':
+		# returns the video pool sources catalogue as json
+		sys.stdout.buffer.write(vdman_list_pool(url_params, byte_data, server).encode())
+
 else:
 	sys.stdout.buffer.write(json.dumps({'status': 'incomplete_request'}).encode())
 

@@ -62,7 +62,12 @@ vman_admin .srcs_pool_entry
 	height: 22px;
 }
 
-vman_admin .srcs_pool_entry input
+vman_admin .srcs_pool_entry input.display_name
+{
+	width: 20%;
+}
+
+vman_admin .srcs_pool_entry input.full_path
 {
 	width: 50%;
 }
@@ -86,6 +91,15 @@ vman_admin .srcs_pool_entry img:active
 vman_admin #vma_add_pool_src
 {
 	margin-top: 10px;
+}
+
+vman_admin #vma_srcs_pool .pool_entry_separator
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	user-select: none;
+	padding: 0px 3px 0px 3px;
 }
 
 vman_admin #vma_save_sources
