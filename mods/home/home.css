@@ -34,9 +34,10 @@ body
 
 #pages_pool
 {
-	padding-top: 45px;
+	margin-top: 45px;
 	display: flex;
 	flex-grow: 1;
+	overflow-y: scroll;
 }
 
 #app_topbar

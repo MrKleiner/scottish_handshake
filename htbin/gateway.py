@@ -1,5 +1,5 @@
 #!\python\bin\python.exe
-import os, sys, json, hashlib, base64, cgi
+import os, sys, json, hashlib, base64, cgi, cgitb
 # from tools import *
 from pathlib import Path
 from random import seed
@@ -8,7 +8,9 @@ from random import random
 # MODULES
 from vidman.vidman import *
 from profiles.login import *
-
+from profiles.profiler import *
+from poolsys.poolsys import *
+cgitb.enable()
 
 
 
@@ -77,7 +79,6 @@ auth_db = json.loads(Path(server['cfg']['clearance_db']).read_bytes())
 
 
 
-
 # structure: Params, Data, server root folder
 # only bother if auth parameter is present
 # auth = clearance token
@@ -85,31 +86,62 @@ if url_params.get('action') and url_params.get('auth'):
 	# auth clearance
 	auth_cl = auth_db.get(url_params['auth'])
 
-	if url_params['action'] == 'upd_vid_pool_paths' and 'vdman' in auth_cl:
-		# takes a json containing all the video pool paths
-		# no parse, no whatever
-		sys.stdout.buffer.write(vdman_upd_pool_paths(url_params, byte_data, server).encode())
+
 
 	#
-	# Public
+	# Admin
 	#
-	if url_params['action'] == 'get_vid_pool_paths':
-		# returns the video pool sources catalogue as json
-		sys.stdout.buffer.write(vdman_get_pool_paths(url_params, byte_data, server))
+
+
+	#
+	# List users
+	#
+	if url_params['action'] == 'list_users' and 'admin' in auth_cl['admin']:
+		sys.stdout.buffer.write(profiler_load_users(url_params, byte_data, server).encode())
+
+	#
+	# Save users
+	#
+	if url_params['action'] == 'save_user_profiles' and 'admin' in auth_cl['admin']:
+		sys.stdout.buffer.write(save_user_profiles(url_params, byte_data, server).encode())
+
+
+	#
+	# Load List user allowance
+	#
+	if url_params['action'] == 'load_access_list' and 'admin' in auth_cl['admin']:
+		sys.stdout.buffer.write(profiler_load_access_list(url_params, byte_data, server).encode())
+
+
+	#
+	# Save List user allowance
+	#
+	if url_params['action'] == 'save_allowance_list' and 'admin' in auth_cl['admin']:
+		sys.stdout.buffer.write(profiler_save_access_list(url_params, byte_data, server).encode())
+
+
+
+
+
+
+
+
+
+
+
 
 	#
 	# Auth. Public.
 	#
 	if url_params['action'] == 'login':
-		# returns the video pool sources catalogue as json
+		# returns login token
 		sys.stdout.buffer.write(do_login_token(url_params, byte_data, server).encode())
 
 	#
-	# list videos. Public.
+	# List root folders. Public
 	#
-	if url_params['action'] == 'vdman_list_pool':
-		# returns the video pool sources catalogue as json
-		sys.stdout.buffer.write(vdman_list_pool(url_params, byte_data, server).encode())
+	if url_params['action'] == 'list_root_shite':
+		sys.stdout.buffer.write(list_root_shite(url_params, byte_data, server).encode())
 
 else:
 	sys.stdout.buffer.write(json.dumps({'status': 'incomplete_request'}).encode())

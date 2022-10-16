@@ -16,7 +16,7 @@
 		},
 		{
 			"selector": "#app_topbar #nav_enter_edit",
-			"function": "$all.vidman.load_admin",
+			"function": "$all.admin.load_module",
 			"pass_event": false,
 			"pass_element": false,
 			"pass_params": ""

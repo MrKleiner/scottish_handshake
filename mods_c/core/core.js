@@ -110,21 +110,27 @@ window.bootlegger.core.sysloader = async function(sysname=null)
 
 
 $(document).ready(function(){
-	window.bootlegger.core.sysloader('sys_chooser');
+	window.bootlegger.main_pool.module_loader();
 	window.bootlegger.core.profiler();
 });
 
 
-window.bootlegger.core.py_get = async function(md='manager.py', prms={})
+// prms: URL parameters to pass to the CGI script
+// as: treat response as text/json/buffer
+// returns json with response status and payload
+window.bootlegger.core.py_get = async function(prms={}, load_as='text')
 {
-	print('do py get')
+	print('Exec PY get')
+
+	// add auth token to the request
 	prms['auth'] = window.localStorage.getItem('auth_token') || 'ftp';
 
+	// convert payload to URL params
 	const urlParams = new URLSearchParams(prms);
 
 	// exec...
 	return new Promise(function(resolve, reject){
-		fetch(`htbin/${md}?${urlParams.toString()}`, {
+		fetch(`htbin/gateway.py?${urlParams.toString()}`, {
 			'headers': {
 				'accept': '*/*',
 				'cache-control': 'no-cache',
@@ -134,35 +140,75 @@ window.bootlegger.core.py_get = async function(md='manager.py', prms={})
 			'mode': 'cors',
 			'credentials': 'omit'
 		})
-		.then(function(response) {
+		.then(async function(response) {
 			// print(response.status);
 			if (response.status == 404){
 				print('Failed to execute py get request');
-				// resolve({'ok': false, 'reason': 'invalid_url'})
 				return
 			}
-			response.text().then(function(data) {
-				print('Pytalk get request success')
-				resolve(data)
-			});
+
+
+			// todo: for now use try catch
+			// come up with something adequate later....
+			try {
+
+				// todo: Just use response[GET AS]
+				// and require this function to take proper read as statements
+
+				// TEXT
+				if (load_as == 'text'){
+					const dt = await response.text()
+					resolve(dt)
+					return
+				}
+
+				// JSON
+				if (load_as == 'json'){
+					const dt = await response.json()
+					print('got json from pyGet', dt)
+					resolve(dt)
+					return
+				}
+
+				// buffer
+				if (load_as == 'buffer'){
+					const dt = await response.arrayBuffer()
+					resolve(dt)
+					return
+				}
+
+				resolve(await response.text())
+				return
+
+			} catch (error) {
+				console.warn('PyGet Error', dt)
+			}
+
+
+
 		});
 	});
 }
 
 
 
-
-window.bootlegger.core.py_send = async function(md='manager.py', prms={}, payload='')
+// prms: URL parameters to pass to the CGI script
+// payload: payload to send. Has to be proper shit and not raw objects
+// as: treat response as text/json/buffer
+window.bootlegger.core.py_send = async function(prms={}, payload='', as='text')
 {
+	// add auth token to the payload
 	prms['auth'] = window.localStorage.getItem('auth_token') || 'ftp';
 
+	// convert params to URL params
 	const urlParams = new URLSearchParams(prms);
 
+	// convert payload to BLOB
 	const pl = new Blob([payload], {type: 'text/plain'});
 
 	// exec...
 	return new Promise(function(resolve, reject){
-		fetch(`htbin/${md}?${urlParams.toString()}`, {
+		fetch(`htbin/gateway.py?${urlParams.toString()}`, {
 			'headers': {
 				'accept': '*/*',
 				'cache-control': 'no-cache',
@@ -176,12 +222,40 @@ window.bootlegger.core.py_send = async function(md='manager.py', prms={}, payloa
 		.then(function(response) {
 			// print(response.status);
 			if (response.status == 404){
-				print('Failed to execute py POST request');
-				// resolve({'ok': false, 'reason': 'invalid_url'})
+				print('Failed to execute py SEND request');
 				return
 			}
-			response.text().then(function(data) {
-				print('Pytalk POST request success')
+
+			// TEXT
+			if (as == 'text'){
+				response.text().then(function(data) {
+					print('PySend text success, data:', data)
+					resolve(data)
+				});
+				return
+			}
+
+			// JSON
+			if (as == 'json'){
+				response.json().then(function(data) {
+					print('PySend json success, data:', data)
+					resolve(data)
+				});
+				return
+			}
+
+			// buffer
+			if (as == 'buffer'){
+				response.arrayBuffer().then(function(data) {
+					print('PySend buffer success, data:', data)
+					resolve(data)
+				});
+				return
+			}
+
+			// Fallback
+			response.arrayBuffer().then(function(data) {
+				print('PySend buffer as fallback success, data:', data)
 				resolve(data)
 			});
 		});
@@ -195,5 +269,56 @@ window.bootlegger.core.profiler = function()
 	if (window.localStorage.getItem('auth_token')){
 		$('body').attr('logged_in', true)
 	}
+}
+
+
+
+window.bootlegger.core.load_dbfile = function(flpath, load_as)
+{
+	return new Promise(function(resolve, reject){
+		fetch(`db/${flpath.strip('/')}`, {
+			'headers': {
+				'accept': '*/*',
+				'cache-control': 'no-cache',
+				'pragma': 'no-cache'
+			},
+			'method': 'GET',
+			'mode': 'cors',
+			'credentials': 'omit'
+		})
+		.then(async function(response) {
+			// console.log(response.status);
+			if (response.status == 404){
+				resolve('DB File load: File does not exist')
+				return
+			}
+
+			// todo: Just use response[GET AS]
+			// and require this function to take proper read as statements
+
+			// TEXT
+			if (load_as == 'text'){
+				resolve(await response.text())
+				return
+			}
+
+			// JSON
+			if (load_as == 'json'){
+				resolve(await response.json())
+				return
+			}
+
+			// buffer
+			if (load_as == 'buffer'){
+				resolve(await response.arrayBuffer())
+				return
+			}
+
+			resolve(await response.text())
+			return
+
+
+		});
+	});
 }
 

@@ -1,0 +1,25 @@
+
+
+
+mpool
+{
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+mpool #mpool_tobpar
+{
+	display: flex;
+	flex-direction: row;
+	height: 50px;
+	margin-top: 5px;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+
+

@@ -14,3 +14,10 @@
 
 /* login */
 @import url('mods_c/login/login.css');
+
+
+/* admin */
+@import url('mods_c/admin/admin.css');
+
+/* main file pool */
+@import url('mods_c/main_pool/main_pool.css');

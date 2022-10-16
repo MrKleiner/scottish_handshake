@@ -12,14 +12,14 @@ $this.load_module = async function()
 
 $this.intrusion = async function()
 {
-	const try_login = JSON.parse(await $all.core.py_get(
-		'gateway.py',
+	const try_login =await $all.core.py_get(
 		{
 			'action': 'login',
 			'password': $('login #login_pswd').val(),
 			'username': $('login #login_username').val()
-		}
-	))
+		},
+		'json'
+	)
 
 
 	// if received token - reload

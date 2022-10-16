@@ -16,14 +16,14 @@ window.bootlegger.login.load_module = async function()
 
 window.bootlegger.login.intrusion = async function()
 {
-	const try_login = JSON.parse(await window.bootlegger.core.py_get(
-		'gateway.py',
+	const try_login =await window.bootlegger.core.py_get(
 		{
 			'action': 'login',
 			'password': $('login #login_pswd').val(),
 			'username': $('login #login_username').val()
-		}
-	))
+		},
+		'json'
+	)
 
 
 	// if received token - reload

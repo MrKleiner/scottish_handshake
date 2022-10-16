@@ -16,7 +16,7 @@
 		},
 		{
 			"selector": "#app_topbar #nav_enter_edit",
-			"function": "window.bootlegger.vidman.load_admin",
+			"function": "window.bootlegger.admin.load_module",
 			"pass_event": false,
 			"pass_element": false,
 			"pass_params": ""

@@ -1,0 +1,56 @@
+{
+	"input": [
+		{
+			"selector": "admin #userlist .usr_profile input.profile_login",
+			"function": "$this.validate_users_nicknames",
+			"pass_event": false,
+			"pass_element": true,
+			"pass_params": ""
+		}
+	],
+	"click": [
+		{
+			"selector": "admin btn#save_users",
+			"function": "$this.save_user_profiles",
+			"pass_event": false,
+			"pass_element": false,
+			"pass_params": ""
+		},
+		{
+			"selector": "admin btn#spawn_new_user",
+			"function": "$this.add_user_profile",
+			"pass_event": false,
+			"pass_element": false,
+			"pass_params": ""
+		},
+		{
+			"selector": "admin .usr_profile .userlist_kill_user",
+			"function": "$this.userlist_kill_user",
+			"pass_event": false,
+			"pass_element": true,
+			"pass_params": ""
+		},
+		{
+			"selector": "admin .alw_list_folders .alw_kill_folder",
+			"function": "$this.alw_kill_folder",
+			"pass_event": false,
+			"pass_element": true,
+			"pass_params": ""
+		},
+		{
+			"selector": "admin #alw_add_folder",
+			"function": "$this.add_allowed_folder",
+			"pass_event": false,
+			"pass_element": true,
+			"pass_params": ""
+		},
+		{
+			"selector": "admin #save_access_list",
+			"function": "$this.save_allowance_list",
+			"pass_event": false,
+			"pass_element": false,
+			"pass_params": ""
+		}
+	]
+
+}

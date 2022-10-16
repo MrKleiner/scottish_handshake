@@ -1,5 +1,6 @@
 
 
+/*Buttons regular*/
 
 btn
 {
@@ -24,6 +25,53 @@ btn:active
 
 
 
+
+
+
+
+
+
+
+/*buttons lite*/
+
+btn[lite]
+{
+	padding: 3px;
+	font-size: 11px;
+	/*background: #090A0D;*/
+	background: rgba(255, 255, 255, 0.1);
+	/*outline: 1px solid rgba(255, 255, 255, 0.3);*/
+	/*border-radius: 5px;*/
+	user-select: none;
+}
+
+btn[lite]:hover
+{
+	background: rgba(255, 255, 255, 0.2);
+}
+
+btn[lite]:active
+{
+	background: rgba(210, 255, 220, 0.2);
+	color: lime;
+	/*outline-color: lime;*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*inputs default styling*/
 
 input[type='text'], input[type='password']
 {
