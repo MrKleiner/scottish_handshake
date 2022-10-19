@@ -1,5 +1,5 @@
 {
 	"auth_db_loc": "/home/basket/web_db/accounts_auth.json",
 	"clearance_db": "/home/basket/web_db/ctrl_clearance.json",
-	"preview_db": "/raid/btg_prdb/vids"
+	"preview_db": "/raid/btg_prdb"
 }

@@ -1,0 +1,49 @@
+{
+	"click": [
+		{
+			"selector": "mpool flist fld.league",
+			"function": "$this.list_league_matches",
+			"pass_event": false,
+			"pass_element": true,
+			"pass_params": ""
+		},
+		{
+			"selector": "mpool flist fld.match",
+			"function": "$this.list_match_struct",
+			"pass_event": false,
+			"pass_element": true,
+			"pass_params": ""
+		},
+		{
+			"selector": "mpool flist fld.struct_entry",
+			"function": "$this.list_media",
+			"pass_event": false,
+			"pass_element": true,
+			"pass_params": ""
+		},
+		{
+			"selector": "mpool flist med.media_entry",
+			"function": "$this.load_fullres_media",
+			"pass_event": false,
+			"pass_element": true,
+			"pass_params": ""
+		},
+		{
+			"selector": "img#pic_fullres_preview",
+			"function": "$this.viewing_fullres = false;$('img#pic_fullres_preview').remove",
+			"pass_event": false,
+			"pass_element": false,
+			"pass_params": ""
+		}
+	],
+
+	"keydown": [
+		{
+			"selector": "body",
+			"function": "$this.img_cycle_lr",
+			"pass_event": true,
+			"pass_element": true,
+			"pass_params": ""
+		}
+	]
+}

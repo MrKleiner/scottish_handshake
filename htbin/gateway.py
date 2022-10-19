@@ -1,4 +1,4 @@
-#!\python\bin\python.exe
+#!/usr/bin/python3.9
 import os, sys, json, hashlib, base64, cgi, cgitb
 # from tools import *
 from pathlib import Path
@@ -11,6 +11,8 @@ from profiles.login import *
 from profiles.profiler import *
 from poolsys.poolsys import *
 cgitb.enable()
+
+output = sys.stdout.buffer.write
 
 
 
@@ -34,7 +36,7 @@ except:
 
 
 # fuck it, it's always byte data
-sys.stdout.buffer.write(b'Content-Type: application/octet-stream\n\n')
+output(b'Content-Type: application/octet-stream\n\n')
 # sys.stdout.buffer.write(b'sex')
 
 # server root folder
@@ -54,6 +56,30 @@ auth_db = json.loads(Path(server['cfg']['clearance_db']).read_bytes())
 # =============================================
 #					Setup
 # =============================================
+
+
+
+
+
+
+
+# =============================================
+#					Init all systems (why??)
+# =============================================
+
+pool_sys = poolsys(url_params, byte_data, server)
+
+
+
+# =============================================
+#					Init all systems (why??)
+# =============================================
+
+
+
+
+
+
 
 
 
@@ -97,27 +123,27 @@ if url_params.get('action') and url_params.get('auth'):
 	# List users
 	#
 	if url_params['action'] == 'list_users' and 'admin' in auth_cl['admin']:
-		sys.stdout.buffer.write(profiler_load_users(url_params, byte_data, server).encode())
+		output(profiler_load_users(url_params, byte_data, server).encode())
 
 	#
 	# Save users
 	#
 	if url_params['action'] == 'save_user_profiles' and 'admin' in auth_cl['admin']:
-		sys.stdout.buffer.write(save_user_profiles(url_params, byte_data, server).encode())
+		output(save_user_profiles(url_params, byte_data, server).encode())
 
 
 	#
 	# Load List user allowance
 	#
 	if url_params['action'] == 'load_access_list' and 'admin' in auth_cl['admin']:
-		sys.stdout.buffer.write(profiler_load_access_list(url_params, byte_data, server).encode())
+		output(profiler_load_access_list(url_params, byte_data, server).encode())
 
 
 	#
 	# Save List user allowance
 	#
 	if url_params['action'] == 'save_allowance_list' and 'admin' in auth_cl['admin']:
-		sys.stdout.buffer.write(profiler_save_access_list(url_params, byte_data, server).encode())
+		output(profiler_save_access_list(url_params, byte_data, server).encode())
 
 
 
@@ -135,16 +161,41 @@ if url_params.get('action') and url_params.get('auth'):
 	#
 	if url_params['action'] == 'login':
 		# returns login token
-		sys.stdout.buffer.write(do_login_token(url_params, byte_data, server).encode())
+		output(do_login_token(url_params, byte_data, server).encode())
+
+
+
+
+
 
 	#
-	# List root folders. Public
+	# File sys
 	#
-	if url_params['action'] == 'list_root_shite':
-		sys.stdout.buffer.write(list_root_shite(url_params, byte_data, server).encode())
+	if url_params['action'] == 'poolsys.list_leagues':
+		output(pool_sys.list_leagues.encode())
+
+	if url_params['action'] == 'poolsys.list_league_matches':
+		output(pool_sys.list_league_matches.encode())
+
+	if url_params['action'] == 'poolsys.list_match_struct':
+		output(pool_sys.list_match_struct.encode())
+
+	if url_params['action'] == 'poolsys.list_media':
+		output(pool_sys.list_media.encode())
+
+	if url_params['action'] == 'poolsys.load_media_preview':
+		output(pool_sys.load_media_preview)
+
+	if url_params['action'] == 'poolsys.load_fullres_pic':
+		output(pool_sys.load_fullres_pic)
+
+
+
+
+
 
 else:
-	sys.stdout.buffer.write(json.dumps({'status': 'incomplete_request'}).encode())
+	output(json.dumps({'status': 'incomplete_request'}).encode())
 
 
 

@@ -54,4 +54,11 @@ def eval_hash(st, h='md5'):
 
 
 
-
+# get evenly distributed points from a range
+def even_points(low,up,leng):
+	list = []
+	step = (up - low) / float(leng)
+	for i in range(leng):
+		list.append(low)
+		low = low + step
+	return list

@@ -49,6 +49,19 @@ document.addEventListener('click', tr_event => {
 
 
 	// ==========================================
+	// 	main_pool main_pool
+	// ==========================================
+
+	if (event.target.closest('mpool flist fld.league')){window.bootlegger.main_pool.list_league_matches(event.target.closest('mpool flist fld.league'))}
+	if (event.target.closest('mpool flist fld.match')){window.bootlegger.main_pool.list_match_struct(event.target.closest('mpool flist fld.match'))}
+	if (event.target.closest('mpool flist fld.struct_entry')){window.bootlegger.main_pool.list_media(event.target.closest('mpool flist fld.struct_entry'))}
+	if (event.target.closest('mpool flist med.media_entry')){window.bootlegger.main_pool.load_fullres_media(event.target.closest('mpool flist med.media_entry'))}
+	if (event.target.closest('img#pic_fullres_preview')){window.bootlegger.main_pool.viewing_fullres = false;$('img#pic_fullres_preview').remove()}
+
+
+
+
+	// ==========================================
 	// 	sys_chooser syschoser
 	// ==========================================
 
@@ -65,6 +78,19 @@ document.addEventListener('click', tr_event => {
 	if (event.target.closest('vman_admin .srcs_pool_entry img')){window.bootlegger.vidman.del_src_pool_entry(event.target.closest('vman_admin .srcs_pool_entry img'))}
 	if (event.target.closest('vman_admin #vma_save_sources')){window.bootlegger.vidman.save_vid_pool_srcs()}
 	if (event.target.closest('#tree_pool_entries .entry_folder')){window.bootlegger.vidman.list_vids(event.target.closest('#tree_pool_entries .entry_folder'))}
+
+
+});
+
+
+document.addEventListener('keydown', tr_event => {
+
+
+	// ==========================================
+	// 	main_pool main_pool
+	// ==========================================
+
+	if (event.target.closest('body')){window.bootlegger.main_pool.img_cycle_lr(tr_event, event.target.closest('body'))}
 
 
 });

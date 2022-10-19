@@ -1,60 +1,328 @@
 
 
 
-
+# important todod: make this work with  with ... as
 class gigabin:
 
-	def __init__(self, src=None, force=None):
+	def __init__(self, src='', overwrite=False):
 		from pathlib import Path
-		import json, base64
-		self.giga_identifier = 'gigachad'
+		import json, base64, os, sys
+		self.giga_idn = 'gigachad'
 
 		self.header = None
-		self.bin = None
+		self.bin = Path(src)
 
+		# following 32 bytes after the identifier indicate the header length
 		self.head_len = len(self.giga_identifier) + 32
 
-		# if a path was passed - read it
-		if Path(str(src)).is_file():
-			# raise Exception('Given data structure does not represent a valid gigabin format')
-			# with open(str(src_bin), 'rb') as bootleg:
-			# 	bootleg.seek(8192 + bin_info['7z_exe']['offset'], 0)
-			# 	bootleg.read()
-			
-			# open file and validate that it's gigachad
-			with open(str(src), 'rb') as chad:
-				# first 7 bytes store the identifier
-				if src.read(7).decode() != self.giga_identifier:
-					raise Exception('Given data structure does not represent a valid gigabin format')
+		# if the file does not exist and overwrite is false - error
+		if not self.bin.is_file() and overwrite != True:
+			raise Exception('File does not exist and overwrite is not True')
 
-				#
-				# Get header
-				#
-				chad.seek(7)
-				head_size = int(chad.read(32).decode().replace('!', ''))
-				all_size = chad.seek(0, os.SEEK_END)
-				all_size = all_size.tell()
-				# read header bytes
-				chad.seek(all_size - head_size, 0)
-				self.header = json.loads(base64.b64decode(chad.read(head_size)))
-				self.bin = Path(src)
-		else:
-			self.header = {
-				'stores': {},
-				'version': '0.17',
-				'total_size': None,
-				'comment': ''
-			}
-			self.bin = Path(force)
+		# if overwrite is set to true, then overwrite existing/non existing file
+		if overwrite == True:
+			self.file_wipe()
+			return
 
-			# init new file
-			with open(str(self.bin), 'ab') as chad:
-				chad.write(b'')
-				chad.write(self.giga_identifier.encode())
-				chad.write(('!'*32).encode())
-				chad.write(self.mkheader())
+		# as of now it's either a valid gigabin or exception
+		# todo: because of this check a file is being opened twice. Bad
+		valid_fm = self.validate_format()
+		if valid_fm != True:
+			raise Exception('Given data structure does not represent a valid gigabin format')
+
+		# giga read giga bin
+		with open(str(src), 'rb') as chad:
+			# move cursor to the end of the ID header
+			chad.seek(len(self.giga_idn))
+			# read 32 bytes of the header length
+			head_size = int(chad.read(32).decode().replace('!', ''))
+			chad.seek(0, os.SEEK_END)
+			total_fsize = chad.tell()
+
+			# read header
+			chad.seek(total_fsize - head_size, 0)
+			self.header = json.loads(base64.b64decode(chad.read(head_size)))
+
+
+	# validate whether the file represents a valid giga bin or not
+	def validate_format(self):
+		tgt = Path(tgt)
+
+		with open(str(tgt), 'rb') as chad:
+			# first 8 bytes store the identifier
+			given_id = chad.read(len(self.giga_idn)).decode()
+			print('Validate Format', given_id)
+			if given_id == self.giga_identifier:
+				return True
+			else:
+				return False
+
+	# wipe the current file
+	def file_wipe(self):
+		if not self.bin.parent.is_dir():
+			raise Exception('Parent directory of the target file (as well as the file itself) does not exist')
+
+		self.header = {
+			'stores': {},
+			'version': '0.17',
+			'total_size': None,
+			'comment': ''
+		}
+
+		# create empty file 
+		self.bin.write_text('')
+
+		# init new file
+		with open(str(self.bin), 'ab') as chad:
+			chad.write(self.giga_identifier.encode())
+			chad.write(('!'*32).encode())
+			chad.write(self.mkheader())
 
 		self.files = self.header['stores']
+
+	# compile header into base64
+	def mkheader(self):
+		import base64
+		import json
+		return base64.b64encode(json.dumps(self.header).encode())
+
+
+	# read a single bit
+	# read as = json/bytes/text
+	def read_solid(self, sname=None, read_as='bytes', missing_ok=False):
+		import json
+		# pathlib approach
+		# specify missing_ok to ignore the fact that it's missing from the dictionary
+		blocks = self.header['stores']
+		tgt_block = blocks.get(sname)
+
+		if not tgt_block and missing_ok != True:
+			raise Exception('Requested block does not exist and missing_ok is not True')
+		else:
+			return
+
+		bits = tgt_block['bits']
+
+		with open(str(self.bin), 'rb') as chad:
+			# skip header
+			chad.seek(self.head_len, 0)
+			# move to the offset of the requested file
+			chad.seek(bits[0], 1)
+			# read
+			chunk = chad.read(bits[1])
+			if read_as == 'bytes':
+				return chunk
+			if read_as == 'json':
+				return josn.loads(chunk)
+			if read_as == 'text':
+				return chunk.decode()
+
+
+	# read array-like
+	def read_array(self, sname=None, read_as='bytes', missing_ok=False)
+		import json
+		# pathlib approach
+		# specify missing_ok to ignore the fact that it's missing from the dictionary
+		blocks = self.header['stores']
+		tgt_array = blocks.get(sname)
+
+		if not tgt_array and missing_ok != True:
+			raise Exception('Requested array does not exist and missing_ok is not True')
+		else:
+			return
+
+		bits = tgt_array['bits']
+
+		with open(str(self.bin), 'rb') as chad:
+			# yield bits one by one
+			for bt in bits:
+				# skip header
+				chad.seek(self.head_len, 0)
+				# move to the offset of the requested file
+				chad.seek(bt[0], 1)
+				# read
+				chunk = chad.read(bt[1])
+				if read_as == 'bytes':
+					yield chunk
+				if read_as == 'json':
+					yield josn.loads(chunk)
+				if read_as == 'text':
+					yield chunk.decode()
+
+
+	# Delete block or array
+	def kill(self, sname=None):
+		import os
+
+		blocks = self.header['stores']
+		tgt_block = blocks.get(sname)
+		if not tgt_block:
+			return
+
+		original = open(str(self.bin), 'rb')
+		temp_buffer = Path(f'{str(self.bin)}.buffer')
+		temp_buffer.write_bytes(b'')
+		target = open(str(temp_buffer), 'r+b')
+		newhead = {
+			'stores': {},
+			'version': '0.17',
+			'total_size': None,
+			'comment': ''
+		}
+
+		# first write header preset
+		target.write(self.giga_idn)
+		target.write('!'*32)
+
+		# now write solid blocks
+		for sld in blocks:
+			# if it's solid and not requested deleteion name
+			if sld['type'] != 'solid' or sld == sname:
+				continue
+
+			src_bits = sld['bits']
+
+			#
+			# read source block
+			#
+
+			# skip header
+			original.seek(self.head_len, 0)
+			# move cursor to target offset
+			original.seek(src_bits[0], 1)
+			# read chunk
+			origin_chunk = original.read(src_bits[1])
+
+			#
+			# write this block to the new file
+			#
+
+			# write chunk info to the header
+			newhead['stores'][sname] = {}
+			newhead['stores'][sname]['type'] = 'solid'
+			newhead['stores'][sname]['bits'] = (target.tell() - self.head_len, len(origin_chunk), None)
+			# write chunk to the new file
+			target.write(origin_chunk)
+
+		original.close()
+
+
+		#
+		# then, write arrays
+		#
+
+		# todo: for now this uses the class method "read array"
+		# which means that it will open/close the source file on each call
+		for arr in blocks:
+			# if it's array and not requested deleteion name
+			if arr['type'] != 'array' or arr == sname:
+				continue
+
+			# important todo: make the whole class work with with ... as
+			# or at least open the file inside init and then reuse it
+
+			# write chunk info to the header
+			newhead['stores'][sname] = {}
+			newhead['stores'][sname]['type'] = 'array'
+			newhead['stores'][sname]['bits'] = []
+
+			# iterate over array entries
+			for ae in self.read_array(sname):
+				# write chunk info
+				newhead['stores'][sname]['bits'].append((target.tell() - self.head_len, len(ae), None))
+				# write chunk to the new file
+				target.write(ae)
+
+
+		#
+		# Finalize
+		#
+
+		# write down new header to the class storage
+		self.header = newhead
+		# collapse header into string
+		mk_header = self.mkheader()
+
+		# write header to file
+		target.write(mk_header)
+
+		# move cursor to the beginnig of the file
+		target.seek(self.giga_idn, 0)
+		# write header length
+		target.write(str(len(mk_header)).encode())
+
+		target.close()
+
+		# rename shit
+		self.bin.unlink(missing_ok=True)
+
+		os.rename(str(temp_buffer), str(self.bin))
+
+
+	# add solid block
+	def add_solid(self, fname=None, data=None, overwrite=True):
+		import os
+		if None in (fname, data):
+			raise Exception('Invalid info passed to add_solid')
+
+		# if the name exists in the header, but overwrite is set to false
+		# for now skip, later raise exception
+		if fname in self.header['stores'] and overwrite != True:
+			return False
+
+		chad = open(str(self.bin), 'r+b')
+		# chad.seek(0, os.SEEK_END)
+
+		# erase exiting header and header length
+
+		# erase header length
+		chad.seek(len(self.giga_idn), 0)
+		# get header length
+		hlen = int(chad.read(32).decode().replace('!', ''))
+		chad.seek(len(self.giga_idn), 0)
+		# erase
+		chad.write('!'*32)
+
+		# erase header json
+		chad.seek(hlen*(-1), os.SEEK_END)
+		# erase
+		chad.truncate()
+
+
+		# update header before adding requested data
+		self.header['stores'][fname] = {}
+		self.header['stores'][fname]['type'] = 'solid'
+		self.header['stores'][fname]['bits'] = (chat.tell(), len(data), None)
+
+		# append requested data
+		chad.write(data)
+
+		# append header json
+		mk_head = self.mkheader()
+		chad.write(mk_head)
+
+		# write header length
+		chad.seek(self.giga_idn, 0)
+		chad.write(str(len(mk_head)).encode())
+
+		# close
+		chad.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	# acts as a generator when chunk type is array
@@ -70,6 +338,13 @@ class gigabin:
 		if fl_info['type'] == 'solid':
 			chunk_info = self.header['stores'][name]['bits']
 			return self.read_bit(chunk_info, read_as)
+
+
+
+
+
+
+
 
 
 
@@ -99,10 +374,7 @@ class gigabin:
 
 
 
-	def mkheader(self):
-		import base64
-		import json
-		return base64.b64encode(json.dumps(self.header).encode())
+
 
 
 
@@ -321,7 +593,7 @@ class gigabin:
 
 
 	# add solid type
-	def add_solid(self, info=None):
+	# def add_solid(self, info=None):
 
 
 
@@ -367,4 +639,3 @@ def mdma():
 	for sid, nen in enumerate(sex):
 		(thedir / f'balls{sid}.mp4').write_bytes(kurwa.read_file(f'dicks{str(sid)}', 'buffer'))
 
-mdma()

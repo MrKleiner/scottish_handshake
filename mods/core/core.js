@@ -143,44 +143,41 @@ $this.py_get = async function(prms={}, load_as='text')
 				return
 			}
 
+			// honestly, FUCKOFF
+			// this is just fine
+			const bin = new Uint8Array(await response.arrayBuffer())
 
 			// todo: for now use try catch
 			// come up with something adequate later....
 			try {
-
-				// todo: Just use response[GET AS]
-				// and require this function to take proper read as statements
-
-				// TEXT
 				if (load_as == 'text'){
-					const dt = await response.text()
-					resolve(dt)
+					resolve(lizard.UTF8ArrToStr(bin))
 					return
 				}
-
-				// JSON
 				if (load_as == 'json'){
-					const dt = await response.json()
-					print('got json from pyGet', dt)
-					resolve(dt)
+					resolve(JSON.parse(lizard.UTF8ArrToStr(bin)))
 					return
 				}
-
-				// buffer
 				if (load_as == 'buffer'){
-					const dt = await response.arrayBuffer()
-					resolve(dt)
+					resolve(bin)
 					return
 				}
-
-				resolve(await response.text())
-				return
+				if (load_as == 'blob'){
+					const boobs = new Blob([bin], {});
+					resolve(boobs)
+					return
+				}
+				if (load_as == 'blob_url'){
+					const boobs = new Blob([bin], {});
+					resolve((window.URL || window.webkitURL).createObjectURL(boobs))
+					return
+				}
+				console.warn('PyGet Warn: falling back to default data type');
+				resolve(lizard.UTF8ArrToStr(bin))
 
 			} catch (error) {
-				console.warn('PyGet Error', dt)
+				console.warn('PyGet Error', lizard.UTF8ArrToStr(bin))
 			}
-
-
 
 		});
 	});
@@ -215,45 +212,39 @@ $this.py_send = async function(prms={}, payload='', as='text')
 			'mode': 'cors',
 			'credentials': 'omit'
 		})
-		.then(function(response) {
+		.then(async function(response) {
 			// print(response.status);
 			if (response.status == 404){
 				print('Failed to execute py SEND request');
 				return
 			}
 
-			// TEXT
-			if (as == 'text'){
-				response.text().then(function(data) {
-					print('PySend text success, data:', data)
-					resolve(data)
-				});
-				return
+			// honestly, FUCKOFF
+			// this is just fine
+			const bin = new Uint8Array(await response.arrayBuffer())
+
+			// todo: for now use try catch
+			// come up with something adequate later....
+			try {
+				if (load_as == 'text'){
+					resolve(lizard.UTF8ArrToStr(bin))
+					return
+				}
+				if (load_as == 'json'){
+					resolve(JSON.parse(lizard.UTF8ArrToStr(bin)))
+					return
+				}
+				if (load_as == 'buffer'){
+					resolve(bin)
+					return
+				}
+				console.warn('PyGet Warn: falling back to default data type');
+				resolve(lizard.UTF8ArrToStr(bin))
+
+			} catch (error) {
+				console.warn('PyGet Error', lizard.UTF8ArrToStr(bin), error)
 			}
 
-			// JSON
-			if (as == 'json'){
-				response.json().then(function(data) {
-					print('PySend json success, data:', data)
-					resolve(data)
-				});
-				return
-			}
-
-			// buffer
-			if (as == 'buffer'){
-				response.arrayBuffer().then(function(data) {
-					print('PySend buffer success, data:', data)
-					resolve(data)
-				});
-				return
-			}
-
-			// Fallback
-			response.arrayBuffer().then(function(data) {
-				print('PySend buffer as fallback success, data:', data)
-				resolve(data)
-			});
 		});
 	});
 }
