@@ -15,6 +15,7 @@ mpool #mpool_tobpar
 	height: 50px;
 	margin-top: 5px;
 	background: rgba(0, 0, 0, 0.5);
+	flex-shrink: 0;
 }
 
 mpool #mpool_tobpar btn
@@ -32,6 +33,8 @@ mpool #flist_and_dl_queue
 	display: flex;
 	flex-direction: row;
 	flex-grow: 1;
+	width: 100%;
+	height: 100%;
 }
 
 
@@ -39,111 +42,18 @@ mpool dlq
 {
 	display: flex;
 	flex-direction: column;
-	width: 10vw;
+	width: 20vw;
 	background: black;
 	flex-shrink: 0;
 }
 
-
 mpool flist
 {
 	display: flex;
-	flex-direction: column;
 	flex-grow: 1;
 	padding: 2px;
-}
-
-mpool flist fld
-{
-	display: flex;
-	height: 30px;
-	user-select: none;
-}
-
-mpool flist etype 
-{
-	display: flex;
-	height: 100%;
-}
-
-mpool flist etype[folder]
-{
-	display: flex;
-	height: 100%;
-	width: 20px;
-	background-image: url('../../assets/folder_icon.svg');
-	background-size: contain;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: 60%;
-	filter: brightness(0.5);
-}
-
-mpool flist ename
-{
-	display: flex;
-	align-items: center;
-	font-size: 20px;
-}
-
-mpool flist fld:nth-child(even)
-{
-	background: rgba(0, 0, 0, 0.4);
-}
-
-mpool flist fld:nth-child(odd)
-{
-	background: rgba(0, 0, 0, 0.2);
-}
-
-mpool flist fld:hover
-{
-	background: rgba(255, 255, 255, 0.04);
-}
-
-mpool flist fld:active
-{
-	outline: 1px solid lime;
-}
-
-
-mpool med.media_entry
-{
-	display: flex;
-	flex-direction: column;
-	width: 20vw;
-	height: 15vw;
-	margin: 10px;
-}
-
-mpool med.media_entry etype[img]
-{
-	width: 100%;
-	height: 70%;
-	background-position: center;
-	background-size: contain;
-	background-repeat: no-repeat;
-}
-
-mpool med.media_entry ename
-{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-
-
-mpool flist fld.go_up
-{
-	display: flex;
-	width: 20vw;
-	height: 15vw;
-}
-
-mpool flist fld.go_up etype
-{
-	background: red;
+	overflow-y: scroll;
+	padding-bottom: 55px;
 }
 
 img#pic_fullres_preview
@@ -166,4 +76,207 @@ img#pic_fullres_preview
 	}
 }
 
+#indicate_can_drop_files
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.9);
+}
 
+
+#indicate_can_drop_files_icon
+{
+	/*width: 50%;*/
+	height: 50%;
+	aspect-ratio: 1/1;
+	border-radius: 20px;
+	padding: 20px;
+	border: 5px dashed white;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-image: url('../../assets/upload.png');
+	z-index: 655356;
+	/*pointer-events: none;*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+================================
+LIST view
+================================
+*/
+
+mpool[list] flist
+{
+	flex-direction: column;
+	flex-wrap: nowrap;
+}
+
+mpool[list] flist flist-entry
+{
+	display: flex;
+	height: 30px;
+	user-select: none;
+	flex-shrink: 0;
+}
+
+mpool[list] flist flist-entry etype
+{
+	display: flex;
+	height: 100%;
+	width: 20px;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 60%;
+	filter: brightness(0.5);
+}
+
+
+mpool[list] flist flist-entry ename
+{
+	display: flex;
+	/* display: block; */
+	align-items: center;
+	/* font-size: 20px; */
+	font-size: 1.2vw;
+	text-overflow: ellipsis;
+}
+
+
+mpool[list] flist flist-entry:nth-child(even)
+{
+	background: rgba(0, 0, 0, 0.4);
+}
+
+mpool[list] flist flist-entry:nth-child(odd)
+{
+	background: rgba(0, 0, 0, 0.2);
+}
+
+mpool[list] flist flist-entry:hover
+{
+	background: rgba(255, 255, 255, 0.04);
+}
+
+mpool[list] flist flist-entry:active
+{
+	outline: 1px solid lime;
+}
+
+etype[folder]
+{
+	background-image: url('../../assets/folder_icon.svg');
+}
+
+etype[dir_up]
+{
+	background-image: url('../../assets/folder.png');
+	filter: invert(1);
+}
+
+
+
+
+
+
+
+
+
+/*
+================================
+GRID view
+================================
+*/
+
+mpool[grid] flist
+{
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: flex-start;
+}
+
+mpool[grid] flist flist-entry
+{
+	display: flex;
+	flex-direction: column;
+	aspect-ratio: 20 / 15;
+	width: 14vw;
+	/*height: 15vw;*/
+	margin: 10px;
+}
+
+mpool[grid] flist flist-entry etype
+{
+	display: flex;
+	width: 100%;
+	height: 70%;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+
+mpool[grid] flist flist-entry ename
+{
+	/*display: flex;*/
+	 display: block; 
+	align-items: center;
+	/* font-size: 20px; */
+	font-size: 1.2vw;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	text-align: center;
+}
+
+
+mpool[grid] flist flist-entry.folder:hover
+{
+	background: rgba(255, 255, 255, 0.04);
+	border-radius: 5px;
+}
+
+mpool[grid] flist flist-entry.folder:active
+{
+	outline: 1px solid lime;
+}
+
+
+
+
+
+
+
+
+dlq #dlq_title, dlq #dlq_head
+{
+	padding: 10px;
+}

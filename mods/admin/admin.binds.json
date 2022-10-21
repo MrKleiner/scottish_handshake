@@ -38,8 +38,22 @@
 			"pass_params": ""
 		},
 		{
-			"selector": "admin #alw_add_folder",
+			"selector": "admin .alw_list_folders .alw_kill_admin",
+			"function": "$this.alw_kill_admin",
+			"pass_event": false,
+			"pass_element": true,
+			"pass_params": ""
+		},
+		{
+			"selector": "admin .alw_add_folder",
 			"function": "$this.add_allowed_folder",
+			"pass_event": false,
+			"pass_element": true,
+			"pass_params": ""
+		},
+		{
+			"selector": "admin .alw_add_admin",
+			"function": "$this.add_admin_allowance",
 			"pass_event": false,
 			"pass_element": true,
 			"pass_params": ""

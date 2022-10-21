@@ -1,28 +1,28 @@
 {
 	"click": [
 		{
-			"selector": "mpool flist fld.league",
+			"selector": "mpool flist flist-entry.league",
 			"function": "$this.list_league_matches",
 			"pass_event": false,
 			"pass_element": true,
 			"pass_params": ""
 		},
 		{
-			"selector": "mpool flist fld.match",
+			"selector": "mpool flist flist-entry.match",
 			"function": "$this.list_match_struct",
 			"pass_event": false,
 			"pass_element": true,
 			"pass_params": ""
 		},
 		{
-			"selector": "mpool flist fld.struct_entry",
+			"selector": "mpool flist flist-entry.struct_entry",
 			"function": "$this.list_media",
 			"pass_event": false,
 			"pass_element": true,
 			"pass_params": ""
 		},
 		{
-			"selector": "mpool flist med.media_entry",
+			"selector": "mpool flist flist-entry.media_entry",
 			"function": "$this.load_fullres_media",
 			"pass_event": false,
 			"pass_element": true,

@@ -68,7 +68,7 @@ window.print = console.log;
 
 // load a specified system
 // does nothing if no system specified
-$this.sysloader = async function(sysname=null)
+$this.sysloader = async function(sysname=null, static=false)
 {
 	// dont bother if invalid
 	if (!sysname){
@@ -97,6 +97,11 @@ $this.sysloader = async function(sysname=null)
 			response.text().then(function(data) {
 				print('Found requested panel on server, loading...', sysname, data)
 				document.querySelector('#pages_pool').innerHTML = data;
+				if (static == true){
+					document.querySelector('html').setAttribute('static', true);
+				}else{
+					document.querySelector('html').removeAttribute('static');
+				}
 				resolve(true)
 			});
 		});
@@ -108,6 +113,7 @@ $this.sysloader = async function(sysname=null)
 $(document).ready(function(){
 	$all.main_pool.module_loader();
 	$this.profiler();
+	wtf_kill_js();
 });
 
 
@@ -188,7 +194,7 @@ $this.py_get = async function(prms={}, load_as='text')
 // prms: URL parameters to pass to the CGI script
 // payload: payload to send. Has to be proper shit and not raw objects
 // as: treat response as text/json/buffer
-$this.py_send = async function(prms={}, payload='', as='text')
+$this.py_send = async function(prms={}, payload='', load_as='text')
 {
 	// add auth token to the payload
 	prms['auth'] = window.localStorage.getItem('auth_token') || 'ftp';
@@ -309,3 +315,29 @@ $this.load_dbfile = function(flpath, load_as)
 	});
 }
 
+
+
+$this.file_to_bytes = async function(file, doblob=false)
+{
+	return new Promise(function(resolve, reject){
+		var reader = new FileReader();
+	    reader.readAsArrayBuffer(file, 'UTF-8');
+	    reader.onload = function (evt) {
+	    	// convert read result to blob
+	    	if (doblob == true){
+	    		var boobs = new Blob([reader.result], {type: file.type});
+	    		resolve(boobs)
+	    		return
+	    	}else{
+	    		resolve(reader.result)
+	    	}
+			
+		};
+	});
+}
+
+
+async function wtf_kill_js()
+{
+	$this.fsys_root = (await $this.load_dbfile('root.json', 'json'))['root_path'];
+}

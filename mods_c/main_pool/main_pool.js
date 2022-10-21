@@ -3,12 +3,23 @@ if (!window.bootlegger){window.bootlegger = {}};
 
 if (!window.bootlegger.main_pool){window.bootlegger.main_pool={}};
 
+window.bootlegger.main_pool.set_flist_view_type = function(tp='list')
+{
+	if (tp == 'list'){
+		document.querySelector('mpool').removeAttribute('grid');
+		document.querySelector('mpool').setAttribute('list', true);
+	}
+	if (tp == 'grid'){
+		document.querySelector('mpool').removeAttribute('list');
+		document.querySelector('mpool').setAttribute('grid', true);
+	}
+}
 
 
 
 window.bootlegger.main_pool.module_loader = async function()
 {
-	await window.bootlegger.core.sysloader('main_pool');
+	await window.bootlegger.core.sysloader('main_pool', true);
 
 	// list root shite
 	const roots = await window.bootlegger.core.py_get(
@@ -21,18 +32,17 @@ window.bootlegger.main_pool.module_loader = async function()
 	print('fuck this shit', roots)
 
 	$('mpool flist').empty();
+	window.bootlegger.main_pool.set_flist_view_type('list');
 	// spawn shite
 	for (var entry of roots){
 		$('mpool flist').append(`
-			<fld class="league" fldname="${entry}">
+			<flist-entry class="folder league" fldname="${entry}">
 				<etype folder>
 				</etype>
 				<ename>${entry}</ename>
-			</fld>
+			</flist-entry>
 		`)
 	}
-
-
 }
 
 
@@ -54,24 +64,25 @@ window.bootlegger.main_pool.list_league_matches = async function(elm)
 	)
 
 	$('mpool flist').empty();
+	window.bootlegger.main_pool.set_flist_view_type('list');
 
 	// spawn shite
 	for (var entry of subroot_flds){
 		$('mpool flist').append(`
-			<fld class="match" fldpath="${entry}">
+			<flist-entry class="folder match" fldpath="${entry}">
 				<etype folder>
 				</etype>
 				<ename>${entry}</ename>
-			</fld>
+			</flist-entry>
 		`)
 	}
 	// now prepend go up
 	$('mpool flist').prepend(`
-		<fld class="match" onclick="window.bootlegger.main_pool.module_loader()">
-			<etype up>
+		<flist-entry class="folder" onclick="window.bootlegger.main_pool.module_loader()">
+			<etype folder>
 			</etype>
 			<ename>../</ename>
-		</fld>
+		</flist-entry>
 	`)
 
 }
@@ -79,6 +90,9 @@ window.bootlegger.main_pool.list_league_matches = async function(elm)
 
 window.bootlegger.main_pool.list_match_struct = async function(elm)
 {
+	// important todo: as was mentioned below this should be a system
+	// and not just some random shit
+	window.bootlegger.main_pool.dirlisting = [];
 	const fld_name = elm.getAttribute('fldpath');
 
 	window.league_match = fld_name;
@@ -94,24 +108,25 @@ window.bootlegger.main_pool.list_match_struct = async function(elm)
 	print('listed match:', dirlisting)
 
 	$('mpool flist').empty();
+	window.bootlegger.main_pool.set_flist_view_type('list');
 
 	for (var lst of dirlisting){
 		$('mpool flist').append(`
-			<fld class="struct_entry" fldpath="${lst}">
+			<flist-entry class="folder struct_entry" fldpath="${lst}">
 				<etype folder>
 				</etype>
 				<ename>${lst}</ename>
-			</fld>
+			</flist-entry>
 		`)
 	}
 
 	// now prepend go up
 	$('mpool flist').prepend(`
-		<fld fldname="${window.league}" class="subrootf" onclick="window.bootlegger.main_pool.list_league_matches(this)">
-			<etype up>
+		<flist-entry fldname="${window.league}" class="folder" onclick="window.bootlegger.main_pool.list_league_matches(this)">
+			<etype folder>
 			</etype>
 			<ename>../</ename>
-		</fld>
+		</flist-entry>
 	`)
 }
 
@@ -125,7 +140,7 @@ window.bootlegger.main_pool.list_media = async function(elm)
 
 	window.struct_fld = fld_name;
 
-	const dirlisting = await window.bootlegger.core.py_get(
+	window.bootlegger.main_pool.dirlisting = await window.bootlegger.core.py_get(
 		{
 			'action': 'poolsys.list_media',
 			'target': `${window.league}/${window.league_match}/${window.struct_fld}`
@@ -133,22 +148,20 @@ window.bootlegger.main_pool.list_media = async function(elm)
 		'json'
 	)
 
-	print('listed media:', dirlisting)
+	print('listed media:', window.bootlegger.main_pool.dirlisting)
 
 	$('mpool flist').empty();
-
-	$('flist').css('flex-direction', 'row');
-	$('flist').css('flex-wrap', 'wrap');
+	window.bootlegger.main_pool.set_flist_view_type('grid');
 
 	$('mpool flist').prepend(`
-		<fld fldname="${window.league}" class="go_up" onclick="window.bootlegger.main_pool.list_league_matches(this)">
-			<etype up_media>
+		<flist-entry fldpath="${window.league_match}" class="folder match" onclick="window.bootlegger.main_pool.list_match_struct(this)">
+			<etype dir_up>
 			</etype>
 			<ename>../</ename>
-		</fld>
+		</flist-entry>
 	`)
 
-	for (var lst of dirlisting){
+	for (var lst of window.bootlegger.main_pool.dirlisting){
 		console.time('Media Unit')
 		// stupid
 		// load preview first
@@ -163,22 +176,51 @@ window.bootlegger.main_pool.list_media = async function(elm)
 		// return
 
 		var media_entry = $(`
-			<med class="media_entry" flpath="${lst['path']}" flname="${lst['flname']}">
+			<flist-entry class="media_entry" flpath="${lst['path']}" flname="${lst['flname']}">
 				<etype style="background-image: url(${media_preview})" img>
 				</etype>
 				<ename>${lst['flname']}</ename>
-			</med>
+			</flist-entry>
 		`)
 
-		$('mpool flist').append(media_entry)
+		$('mpool flist').append(media_entry);
+
+		// important todo: this kinda works, but it'd be better to have a system for this
+		if (window.bootlegger.main_pool.dirlisting.length <= 0){return}
 
 		// load preview
 		console.timeEnd('Media Unit')
 
 	}
 
+	window.bootlegger.main_pool.dirlisting = []
+
 	
 }
+
+window.bootlegger.main_pool.temp_lies = async function(flpath)
+{
+	const media_preview = await window.bootlegger.core.py_get(
+		{
+			'action': 'poolsys.load_media_preview',
+			'media_path': flpath
+		},
+		'blob_url'
+	)
+	// print(media_preview)
+	// return
+
+	var media_entry = $(`
+		<flist-entry class="media_entry" flpath="${flpath}" flname="${flpath.split('/').at(-1)}">
+			<etype style="background-image: url(${media_preview})" img>
+			</etype>
+			<ename>${flpath.split('/').at(-1)}</ename>
+		</flist-entry>
+	`)
+
+	$('mpool flist').append(media_entry)
+}
+
 
 window.bootlegger.main_pool.fm_cache = [];
 window.bootlegger.main_pool.cache_fullres_media = function(url)

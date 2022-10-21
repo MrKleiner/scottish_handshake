@@ -13,7 +13,7 @@ class gigabin:
 		self.bin = Path(src)
 
 		# following 32 bytes after the identifier indicate the header length
-		self.head_len = len(self.giga_identifier) + 32
+		self.head_len = len(self.giga_idn) + 32
 
 		# if the file does not exist and overwrite is false - error
 		if not self.bin.is_file() and overwrite != True:
@@ -52,7 +52,7 @@ class gigabin:
 			# first 8 bytes store the identifier
 			given_id = chad.read(len(self.giga_idn)).decode()
 			print('Validate Format', given_id)
-			if given_id == self.giga_identifier:
+			if given_id == self.giga_idn:
 				return True
 			else:
 				return False
@@ -73,10 +73,16 @@ class gigabin:
 		self.bin.write_text('')
 
 		# init new file
-		with open(str(self.bin), 'ab') as chad:
-			chad.write(self.giga_identifier.encode())
+		with open(str(self.bin), 'r+b') as chad:
+			chad.write(self.giga_idn.encode())
 			chad.write(('!'*32).encode())
+			# create header
+			empty_header = self.mkheader()
+			# write header
 			chad.write(self.mkheader())
+			# write header length
+			chad.seek(len(self.giga_idn))
+			chad.write(str(len(empty_header)).encode())
 
 		self.files = self.header['stores']
 
@@ -98,7 +104,7 @@ class gigabin:
 
 		if not tgt_block and missing_ok != True:
 			raise Exception('Requested block does not exist and missing_ok is not True')
-		else:
+		if not tgt_block and missing_ok == True:
 			return
 
 		bits = tgt_block['bits']
@@ -119,7 +125,7 @@ class gigabin:
 
 
 	# read array-like
-	def read_array(self, sname=None, read_as='bytes', missing_ok=False)
+	def read_array(self, sname=None, read_as='bytes', missing_ok=False):
 		import json
 		# pathlib approach
 		# specify missing_ok to ignore the fact that it's missing from the dictionary
@@ -153,6 +159,7 @@ class gigabin:
 	# Delete block or array
 	def kill(self, sname=None):
 		import os
+		from pathlib import Path
 
 		blocks = self.header['stores']
 		tgt_block = blocks.get(sname)
@@ -171,16 +178,16 @@ class gigabin:
 		}
 
 		# first write header preset
-		target.write(self.giga_idn)
-		target.write('!'*32)
+		target.write(self.giga_idn.encode())
+		target.write(('!'*32).encode())
 
 		# now write solid blocks
 		for sld in blocks:
 			# if it's solid and not requested deleteion name
-			if sld['type'] != 'solid' or sld == sname:
+			if blocks[sld]['type'] != 'solid' or sld == sname:
 				continue
 
-			src_bits = sld['bits']
+			src_bits = blocks[sld]['bits']
 
 			#
 			# read source block
@@ -198,9 +205,10 @@ class gigabin:
 			#
 
 			# write chunk info to the header
-			newhead['stores'][sname] = {}
-			newhead['stores'][sname]['type'] = 'solid'
-			newhead['stores'][sname]['bits'] = (target.tell() - self.head_len, len(origin_chunk), None)
+			newhead['stores'][sld] = {}
+			print('rewrite', sld)
+			newhead['stores'][sld]['type'] = 'solid'
+			newhead['stores'][sld]['bits'] = (target.tell() - self.head_len, len(origin_chunk), None)
 			# write chunk to the new file
 			target.write(origin_chunk)
 
@@ -215,21 +223,21 @@ class gigabin:
 		# which means that it will open/close the source file on each call
 		for arr in blocks:
 			# if it's array and not requested deleteion name
-			if arr['type'] != 'array' or arr == sname:
+			if blocks[arr]['type'] != 'array' or arr == sname:
 				continue
 
 			# important todo: make the whole class work with with ... as
 			# or at least open the file inside init and then reuse it
 
 			# write chunk info to the header
-			newhead['stores'][sname] = {}
-			newhead['stores'][sname]['type'] = 'array'
-			newhead['stores'][sname]['bits'] = []
+			newhead['stores'][arr] = {}
+			newhead['stores'][arr]['type'] = 'array'
+			newhead['stores'][arr]['bits'] = []
 
 			# iterate over array entries
 			for ae in self.read_array(sname):
 				# write chunk info
-				newhead['stores'][sname]['bits'].append((target.tell() - self.head_len, len(ae), None))
+				newhead['stores'][arr]['bits'].append((target.tell() - self.head_len, len(ae), None))
 				# write chunk to the new file
 				target.write(ae)
 
@@ -247,7 +255,7 @@ class gigabin:
 		target.write(mk_header)
 
 		# move cursor to the beginnig of the file
-		target.seek(self.giga_idn, 0)
+		target.seek(len(self.giga_idn), 0)
 		# write header length
 		target.write(str(len(mk_header)).encode())
 
@@ -270,6 +278,9 @@ class gigabin:
 		if fname in self.header['stores'] and overwrite != True:
 			return False
 
+		if fname in self.header['stores']:
+			self.kill(fname)
+
 		chad = open(str(self.bin), 'r+b')
 		# chad.seek(0, os.SEEK_END)
 
@@ -281,7 +292,7 @@ class gigabin:
 		hlen = int(chad.read(32).decode().replace('!', ''))
 		chad.seek(len(self.giga_idn), 0)
 		# erase
-		chad.write('!'*32)
+		chad.write(('!'*32).encode())
 
 		# erase header json
 		chad.seek(hlen*(-1), os.SEEK_END)
@@ -292,7 +303,7 @@ class gigabin:
 		# update header before adding requested data
 		self.header['stores'][fname] = {}
 		self.header['stores'][fname]['type'] = 'solid'
-		self.header['stores'][fname]['bits'] = (chat.tell(), len(data), None)
+		self.header['stores'][fname]['bits'] = (chad.tell() - self.head_len, len(data), None)
 
 		# append requested data
 		chad.write(data)
@@ -302,7 +313,7 @@ class gigabin:
 		chad.write(mk_head)
 
 		# write header length
-		chad.seek(self.giga_idn, 0)
+		chad.seek(len(self.giga_idn), 0)
 		chad.write(str(len(mk_head)).encode())
 
 		# close
@@ -319,290 +330,43 @@ class gigabin:
 
 
 
-
-
-
-
-
-
-	# acts as a generator when chunk type is array
-	def read_file(self, name=None, read_as='bytes'):
-		fl_info = self.header['stores'][name]
-		if not name or not fl_info:
-			return None
-
-
-		#
-		# monoblock
-		#
-		if fl_info['type'] == 'solid':
-			chunk_info = self.header['stores'][name]['bits']
-			return self.read_bit(chunk_info, read_as)
-
-
-
-
-
-
-
-
-
-
-	# acts as a generator when chunk type is array
-	def read_file_arr(self, name=None, read_as='bytes'):
-		fl_info = self.header['stores'][name]
-		if not name or not fl_info:
-			return None
-
-		#
-		# array
-		#
-		if fl_info['type'] == 'array':
-			with open(str(self.bin), 'rb') as chad:
-				for ch in fl_info['bits']:
-					chad.seek(ch[0] + self.head_len, 0)
-					chunk = chad.read(ch[1])
-					if read_as == 'buffer':
-						yield chunk
-
-					if read_as == 'text':
-						yield chunk.decode()
-
-					if read_as == 'json':
-						import json
-						yield json.loads(chunk)
-
-
-
-
-
-
-
-	# takes bit info array as an input
-	# only makes sense for one-time reads
-	def read_bit(self, bit=None, btype='buffer'):
-		with open(str(self.bin), 'rb') as chad:
-			if not bit:
-				return None
-
-			# read bytes
-			chad.seek(bit[0] + self.head_len, 0)
-			chunk = chad.read(bit[1])
-
-			if btype == 'buffer':
-				return chunk
-
-			if btype == 'text':
-				return chunk.decode()
-
-			if btype == 'json':
-				import json
-				return json.loads(chunk)
-
-			return chunk
-
-
-	# takes an array of names to delete
-	def delete_file(self, names=[]):
-		import os
-		if len(names) <= 0:
-			return None
-
-		# del self.header['stores'][name]
-
-		head = self.header['stores']
-
-		# don't write shit if no mathces were found
-		# todo: do smart dict collision test
-		matched = False
-		for nm in names:
-			if nm in head:
-				matched = True
-				break
-		if matched == False:
-			return None
-
-		newfile = self.bin.with_name(f'{self.bin.name}.rw')
-
-		newheader = None
-
-		# Delete items from the dict
-		for del_i in names:
-			del self.header['stores'][del_i]
-
-		# re-append everything except specified
-		with open(str(self.bin), 'rb') as original:
-			with open(str(newfile), 'wb') as chad:
-				# write identifier + preserve header space
-				chad.write(self.giga_identifier.encode())
-				# reserve header size space
-				chad.write(('!'*32).encode())
-
-				# Always account for header length
-				for chunk in head:
-					# if chunk in names:
-					# 	continue
-
-					if head[chunk]['type'] == 'array':
-						# re-write bits one by one
-						for bit_idx, bit in enumerate(chunk['bits']):
-							# set cursor to the begnning of the data in the src file
-							original.seek(self.head_len + bit[0], 0)
-							# write this piece to the new file
-							write_data = original.read(bit[1])
-							write_data_length = len(write_data)
-							chad.write(write_data)
-							# get current offset
-							chad.seek(0, os.SEEK_END)
-							# update header
-							self.header['stores'][chunk]['bits'][bit_idx] = (
-								# offset
-								(chad.tell() - self.head_len - write_data_length),
-								# data length
-								write_data_length,
-								# hash
-								None
-							)
-
-					if head[chunk]['type'] == 'solid':
-						bit = head[chunk]['bits']
-						# set cursor to the begnning of the data in the src file
-						original.seek(self.head_len + bit[0], 0)
-						# write this piece to the new file
-						write_data = original.read(bit[1])
-						write_data_length = len(write_data)
-						chad.write(write_data)
-						# get current offset
-						chad.seek(0, os.SEEK_END)
-						# update header
-						self.header['stores'][chunk]['bits'] = (
-							# offset
-							# IMPORTANT: minus write data length, because as of moment
-							# of reading the data shift
-							# the file already has the payload appended
-							# problem: I fucking hate inclusive/not inclusive
-							# in this case it's.... WHATEVER
-							# seems like we have to subtract 1........
-							# important todo: ^^^^^^
-							(chad.tell() - self.head_len - write_data_length),
-							# data length
-							write_data_length,
-							# hash
-							None
-						)
-
-				# add header
-				newheader = self.mkheader()
-				chad.write(newheader)
-
-				# write header length
-				chad.seek(8, 0)
-				chad.write(str(len(newheader)).encode())
-
-
-
-		# delete original file and rename the new one
-		self.bin.unlink(missing_ok=True)
-		os.rename(str(newfile), str(self.bin))
-
-
-	# info should cointain:
-	# name: filename
-	# data: data to store / pass an empty array to init a new array
-	# overwrite: true/false/append
-	# append = append data to Array type
-
-	# important todo: make this class compatible with
-	# with open() shit
-	# so that it's possible to open the file and avoid many rewrites
-	# utill the work is done
-	def add_file(self, info=None):
-		from pathlib import Path
-		import os, json
-		if not info:
-			raise Exception('gigabin: Invalid file payload')
-
-		store = self.header['stores'];
-
-		# don't do shit if file exists, but overwrite is set to false
-		if store.get(info['name']) and (info.get('overwrite') != True and info.get('overwrite') != 'append'):
-			# console.warn('gigabin: File exists in the file pool, but overwrite is set to false');
-			# print('cant add shit')
-			return None
-
-
-		# first - delete existing name, if any
-		if not info.get('overwrite') == 'append':
-			print('deleting...', [info['name']])
-			self.delete_file([info['name']])
-
-		# if empty array was passed - init a new array
-		if info['data'] == []:
-			# print('init new array with the name', info['name'])
-			self.header['stores'][info['name']] = {
-				'type': 'array',
-				'bits': []
-			}
-			# print(self.header)
-			return True
-
-		# else - write given chunk
-		# todo: makes this accept file paths and be stepped
-		file_header = len(self.mkheader())
-		# first - erase header
-		with open(str(self.bin), 'r+b') as chad:
-			# print('invalid arg', (file_header*(-1)))
-			chad.seek((file_header*(-1)), os.SEEK_END)
-
-			# chad.seek(-1, os.SEEK_END)
-			chad.truncate()
-
-			# Then, move to the end
-			chad.seek(0, os.SEEK_END)
-			current_offs = chad.tell()
-			# now append data to the end of the file
-			chad.write(info['data'])
-
-			# update header
-			if info.get('overwrite') == 'append':
-				# print('I swear it exists', self.header['stores'])
-				self.header['stores'][info['name']]['bits'].append((
-					(current_offs - self.head_len),
-					len(info['data']),
-					None
-				))
-			else:
-				self.header['stores'][info['name']] = {
-					'type': 'solid',
-					# tuples? why use tuples? They're never directly accessed later...
-					'bits': ((current_offs - self.head_len), len(info['data']), None)
-				}
-			# compile header
-			newhead = self.mkheader()
-
-			# update header length
-			chad.seek(len(self.giga_identifier), 0)
-			# flush header length
-			chad.write(('!'*32).encode())
-			# write new header length
-			chad.seek(len(self.giga_identifier), 0)
-			chad.write(str(len(newhead)).encode())
-			# append header to the end of the file
-			chad.seek(0, os.SEEK_END)
-			chad.write(newhead)
-
-
-	# add solid type
-	# def add_solid(self, info=None):
-
-
-
-
-
-
 def mdma():
 	from pathlib import Path
 	thedir = Path(__file__).parent
+	dicks = gigabin((thedir / 'ballsack.chad'), True)
+
+	dicks.add_solid(
+		'sex',
+		'0123456789'.encode(),
+		True
+	)
+	print('added sex', 'read:', dicks.read_solid('sex', 'text'))
+	dicks.add_solid(
+		'fuckoff',
+		'-0_1_2_3_4_5_6_7_8_9-'.encode(),
+		True
+	)
+	print('added fuckoff', 'read:', dicks.read_solid('fuckoff', 'text'))
+	dicks.add_solid(
+		'sex',
+		'DICKSANDBALLS'.encode(),
+		True
+	)
+	print('overwrote shite, read previously successfull read')
+	print('read fuckoff:', dicks.read_solid('fuckoff', 'text'))
+
+
+
+
+
+
+
+
+
+
+
+
+	return 
 	(thedir / 'gigasex.chad').unlink(missing_ok=True)
 	kurwa = gigabin(None, (thedir / 'gigasex.chad'))
 
@@ -639,3 +403,6 @@ def mdma():
 	for sid, nen in enumerate(sex):
 		(thedir / f'balls{sid}.mp4').write_bytes(kurwa.read_file(f'dicks{str(sid)}', 'buffer'))
 
+
+if __name__ == '__main__':
+	mdma()

@@ -20,6 +20,13 @@
 			"pass_event": false,
 			"pass_element": false,
 			"pass_params": ""
+		},
+		{
+			"selector": "#app_topbar #nav_go_home",
+			"function": "$all.main_pool.module_loader",
+			"pass_event": false,
+			"pass_element": false,
+			"pass_params": ""
 		}
 	]
 }

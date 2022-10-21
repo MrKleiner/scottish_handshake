@@ -22,7 +22,9 @@ document.addEventListener('click', tr_event => {
 	if (event.target.closest('admin btn#spawn_new_user')){window.bootlegger.admin.add_user_profile()}
 	if (event.target.closest('admin .usr_profile .userlist_kill_user')){window.bootlegger.admin.userlist_kill_user(event.target.closest('admin .usr_profile .userlist_kill_user'))}
 	if (event.target.closest('admin .alw_list_folders .alw_kill_folder')){window.bootlegger.admin.alw_kill_folder(event.target.closest('admin .alw_list_folders .alw_kill_folder'))}
-	if (event.target.closest('admin #alw_add_folder')){window.bootlegger.admin.add_allowed_folder(event.target.closest('admin #alw_add_folder'))}
+	if (event.target.closest('admin .alw_list_folders .alw_kill_admin')){window.bootlegger.admin.alw_kill_admin(event.target.closest('admin .alw_list_folders .alw_kill_admin'))}
+	if (event.target.closest('admin .alw_add_folder')){window.bootlegger.admin.add_allowed_folder(event.target.closest('admin .alw_add_folder'))}
+	if (event.target.closest('admin .alw_add_admin')){window.bootlegger.admin.add_admin_allowance(event.target.closest('admin .alw_add_admin'))}
 	if (event.target.closest('admin #save_access_list')){window.bootlegger.admin.save_allowance_list()}
 
 
@@ -35,6 +37,7 @@ document.addEventListener('click', tr_event => {
 	if (event.target.closest('#app_topbar #nav_login')){window.bootlegger.login.load_module()}
 	if (event.target.closest('#app_topbar #nav_sign_out')){window.bootlegger.login.logout()}
 	if (event.target.closest('#app_topbar #nav_enter_edit')){window.bootlegger.admin.load_module()}
+	if (event.target.closest('#app_topbar #nav_go_home')){window.bootlegger.main_pool.module_loader()}
 
 
 
@@ -52,10 +55,10 @@ document.addEventListener('click', tr_event => {
 	// 	main_pool main_pool
 	// ==========================================
 
-	if (event.target.closest('mpool flist fld.league')){window.bootlegger.main_pool.list_league_matches(event.target.closest('mpool flist fld.league'))}
-	if (event.target.closest('mpool flist fld.match')){window.bootlegger.main_pool.list_match_struct(event.target.closest('mpool flist fld.match'))}
-	if (event.target.closest('mpool flist fld.struct_entry')){window.bootlegger.main_pool.list_media(event.target.closest('mpool flist fld.struct_entry'))}
-	if (event.target.closest('mpool flist med.media_entry')){window.bootlegger.main_pool.load_fullres_media(event.target.closest('mpool flist med.media_entry'))}
+	if (event.target.closest('mpool flist flist-entry.league')){window.bootlegger.main_pool.list_league_matches(event.target.closest('mpool flist flist-entry.league'))}
+	if (event.target.closest('mpool flist flist-entry.match')){window.bootlegger.main_pool.list_match_struct(event.target.closest('mpool flist flist-entry.match'))}
+	if (event.target.closest('mpool flist flist-entry.struct_entry')){window.bootlegger.main_pool.list_media(event.target.closest('mpool flist flist-entry.struct_entry'))}
+	if (event.target.closest('mpool flist flist-entry.media_entry')){window.bootlegger.main_pool.load_fullres_media(event.target.closest('mpool flist flist-entry.media_entry'))}
 	if (event.target.closest('img#pic_fullres_preview')){window.bootlegger.main_pool.viewing_fullres = false;$('img#pic_fullres_preview').remove()}
 
 

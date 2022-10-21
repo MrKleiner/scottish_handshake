@@ -1,10 +1,21 @@
 
+$this.set_flist_view_type = function(tp='list')
+{
+	if (tp == 'list'){
+		document.querySelector('mpool').removeAttribute('grid');
+		document.querySelector('mpool').setAttribute('list', true);
+	}
+	if (tp == 'grid'){
+		document.querySelector('mpool').removeAttribute('list');
+		document.querySelector('mpool').setAttribute('grid', true);
+	}
+}
 
 
 
 $this.module_loader = async function()
 {
-	await $all.core.sysloader('main_pool');
+	await $all.core.sysloader('main_pool', true);
 
 	// list root shite
 	const roots = await $all.core.py_get(
@@ -17,18 +28,17 @@ $this.module_loader = async function()
 	print('fuck this shit', roots)
 
 	$('mpool flist').empty();
+	$this.set_flist_view_type('list');
 	// spawn shite
 	for (var entry of roots){
 		$('mpool flist').append(`
-			<fld class="league" fldname="${entry}">
+			<flist-entry class="folder league" fldname="${entry}">
 				<etype folder>
 				</etype>
 				<ename>${entry}</ename>
-			</fld>
+			</flist-entry>
 		`)
 	}
-
-
 }
 
 
@@ -50,24 +60,25 @@ $this.list_league_matches = async function(elm)
 	)
 
 	$('mpool flist').empty();
+	$this.set_flist_view_type('list');
 
 	// spawn shite
 	for (var entry of subroot_flds){
 		$('mpool flist').append(`
-			<fld class="match" fldpath="${entry}">
+			<flist-entry class="folder match" fldpath="${entry}">
 				<etype folder>
 				</etype>
 				<ename>${entry}</ename>
-			</fld>
+			</flist-entry>
 		`)
 	}
 	// now prepend go up
 	$('mpool flist').prepend(`
-		<fld class="match" onclick="$this.module_loader()">
-			<etype up>
+		<flist-entry class="folder" onclick="$this.module_loader()">
+			<etype folder>
 			</etype>
 			<ename>../</ename>
-		</fld>
+		</flist-entry>
 	`)
 
 }
@@ -75,6 +86,9 @@ $this.list_league_matches = async function(elm)
 
 $this.list_match_struct = async function(elm)
 {
+	// important todo: as was mentioned below this should be a system
+	// and not just some random shit
+	$this.dirlisting = [];
 	const fld_name = elm.getAttribute('fldpath');
 
 	window.league_match = fld_name;
@@ -90,24 +104,25 @@ $this.list_match_struct = async function(elm)
 	print('listed match:', dirlisting)
 
 	$('mpool flist').empty();
+	$this.set_flist_view_type('list');
 
 	for (var lst of dirlisting){
 		$('mpool flist').append(`
-			<fld class="struct_entry" fldpath="${lst}">
+			<flist-entry class="folder struct_entry" fldpath="${lst}">
 				<etype folder>
 				</etype>
 				<ename>${lst}</ename>
-			</fld>
+			</flist-entry>
 		`)
 	}
 
 	// now prepend go up
 	$('mpool flist').prepend(`
-		<fld fldname="${window.league}" class="subrootf" onclick="$this.list_league_matches(this)">
-			<etype up>
+		<flist-entry fldname="${window.league}" class="folder" onclick="$this.list_league_matches(this)">
+			<etype folder>
 			</etype>
 			<ename>../</ename>
-		</fld>
+		</flist-entry>
 	`)
 }
 
@@ -121,7 +136,7 @@ $this.list_media = async function(elm)
 
 	window.struct_fld = fld_name;
 
-	const dirlisting = await $all.core.py_get(
+	$this.dirlisting = await $all.core.py_get(
 		{
 			'action': 'poolsys.list_media',
 			'target': `${window.league}/${window.league_match}/${window.struct_fld}`
@@ -129,22 +144,20 @@ $this.list_media = async function(elm)
 		'json'
 	)
 
-	print('listed media:', dirlisting)
+	print('listed media:', $this.dirlisting)
 
 	$('mpool flist').empty();
-
-	$('flist').css('flex-direction', 'row');
-	$('flist').css('flex-wrap', 'wrap');
+	$this.set_flist_view_type('grid');
 
 	$('mpool flist').prepend(`
-		<fld fldname="${window.league}" class="go_up" onclick="$this.list_league_matches(this)">
-			<etype up_media>
+		<flist-entry fldpath="${window.league_match}" class="folder match" onclick="$this.list_match_struct(this)">
+			<etype dir_up>
 			</etype>
 			<ename>../</ename>
-		</fld>
+		</flist-entry>
 	`)
 
-	for (var lst of dirlisting){
+	for (var lst of $this.dirlisting){
 		console.time('Media Unit')
 		// stupid
 		// load preview first
@@ -159,22 +172,51 @@ $this.list_media = async function(elm)
 		// return
 
 		var media_entry = $(`
-			<med class="media_entry" flpath="${lst['path']}" flname="${lst['flname']}">
+			<flist-entry class="media_entry" flpath="${lst['path']}" flname="${lst['flname']}">
 				<etype style="background-image: url(${media_preview})" img>
 				</etype>
 				<ename>${lst['flname']}</ename>
-			</med>
+			</flist-entry>
 		`)
 
-		$('mpool flist').append(media_entry)
+		$('mpool flist').append(media_entry);
+
+		// important todo: this kinda works, but it'd be better to have a system for this
+		if ($this.dirlisting.length <= 0){return}
 
 		// load preview
 		console.timeEnd('Media Unit')
 
 	}
 
+	$this.dirlisting = []
+
 	
 }
+
+$this.temp_lies = async function(flpath)
+{
+	const media_preview = await $all.core.py_get(
+		{
+			'action': 'poolsys.load_media_preview',
+			'media_path': flpath
+		},
+		'blob_url'
+	)
+	// print(media_preview)
+	// return
+
+	var media_entry = $(`
+		<flist-entry class="media_entry" flpath="${flpath}" flname="${flpath.split('/').at(-1)}">
+			<etype style="background-image: url(${media_preview})" img>
+			</etype>
+			<ename>${flpath.split('/').at(-1)}</ename>
+		</flist-entry>
+	`)
+
+	$('mpool flist').append(media_entry)
+}
+
 
 $this.fm_cache = [];
 $this.cache_fullres_media = function(url)

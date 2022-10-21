@@ -70,7 +70,10 @@ window.bootlegger.admin.load_acl_list = async function()
 					continue
 				}
 				clearances['admin'].push(`
-					<div class="allowance">${c}</div>
+					<div class="alw_admin_entry">
+						<input class="alw_admin_input" type="text" value="${c}">
+						<img class="alw_kill_admin" draggable="false" src="../assets/rubbish.png">
+					</div>
 				`)
 			}
 			// Folders
@@ -94,13 +97,13 @@ window.bootlegger.admin.load_acl_list = async function()
 					<div class="alw_list_admin">
 						<div class="alw_type_header">Permissions:</div>
 						<div class="alw_allowance_pool">${clearances['admin'].join('')}</div>
-						<btn id="alw_add_admin">Add</btn>
+						<btn class="alw_add_admin">Add</btn>
 					</div>
 
 					<div class="alw_list_folders">
 						<div class="alw_type_header">Folders:</div>
 						<div class="alw_folders_pool">${clearances['folders'].join('')}</div>
-						<btn id="alw_add_folder">Add</btn>
+						<btn class="alw_add_folder">Add</btn>
 					</div>
 
 				</div>
@@ -184,6 +187,13 @@ window.bootlegger.admin.alw_kill_folder = function(fl)
 
 
 
+window.bootlegger.admin.alw_kill_admin = function(fl)
+{
+	$(fl).closest('.alw_admin_entry').remove()
+}
+
+
+
 
 window.bootlegger.admin.add_allowed_folder = function(usr)
 {
@@ -191,6 +201,16 @@ window.bootlegger.admin.add_allowed_folder = function(usr)
 		<div class="alw_folderpath_entry">
 			<input class="alw_folderpath_input" type="text" value="sandwich">
 			<img class="alw_kill_folder" draggable="false" src="../assets/rubbish.png">
+		</div>
+	`);
+}
+
+window.bootlegger.admin.add_admin_allowance = function(usr)
+{
+	$(usr).closest('.alw_list_admin').find('.alw_allowance_pool').append(`
+		<div class="alw_admin_entry">
+			<input class="alw_admin_input" type="text" value="photos">
+			<img class="alw_kill_admin" draggable="false" src="../assets/rubbish.png">
 		</div>
 	`);
 }
@@ -210,8 +230,9 @@ window.bootlegger.admin.save_allowance_list = async function(usr)
 
 		// admin
 		var get_admin = [];
-		for (var adm of entry.querySelectorAll('.alw_list_admin .alw_allowance_pool .allowance')){
-			get_admin.push(adm.textContent.trim())
+		for (var adm of entry.querySelectorAll('.alw_list_admin .alw_allowance_pool .alw_admin_input')){
+			print('WHAT THE FUCK?', adm)
+			get_admin.push(adm.value.trim().strip('/'))
 		}
 		// stupid ?
 		if ($(entry).find('.alw_header_isadmin')[0].checked){

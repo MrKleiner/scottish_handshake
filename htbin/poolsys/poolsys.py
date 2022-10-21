@@ -116,7 +116,8 @@ class poolsys:
 		tgt_path = Path(self.prms['media_path'])
 
 		if tgt_path.suffix.strip('.').lower() in self.allowed_vid:
-			return self.generate_vid_preview
+			# return self.generate_vid_preview
+			return 'videofile'
 
 		if not tgt_path.suffix.strip('.').lower() in self.allowed_img:
 			return 'regular file'.encode()
@@ -269,8 +270,8 @@ class poolsys:
 			'-i', str(tgt_vid),
 
 			# filters
-			'-vf', ("""select='""" + '+'.join([f'eq(n\\,{int(frnum)})' for frnum in even_points(1,vid_fr_count,3)]) + """'"""),
-			# '-vf', """select='eq(n\\,100)+eq(n\\,184)+eq(n\\,213)'""",
+			# '-vf', ("""select='""" + '+'.join([f'eq(n\\,{int(frnum)})' for frnum in even_points(1,vid_fr_count,3)]) + """'"""),
+			'-vf', """select='eq(n\\,100)+eq(n\\,184)+eq(n\\,213)'""",
 
 			# compression
 			'-c:v', 'webp',
@@ -283,40 +284,43 @@ class poolsys:
 		]
 		# extract frames to a temp location on raid
 		# todo: the output doesn't really has to be captured
-		echo_sh = None
-		with sp.Popen(ffmpeg_prms, stdout=sp.PIPE, bufsize=10**8) as img_pipe:
-			echo_sh = img_pipe.stdout.read()
+		# echo_sh = None
+		# with sp.Popen(ffmpeg_prms, stdout=sp.PIPE, bufsize=10**8) as img_pipe:
+		# 	echo_sh = img_pipe.stdout.read()
+
+		sp.run(ffmpeg_prms)
 
 		# return 'fuckoff'.encode()
 
 		#
 		# collapse frames and info into a gigabin
 		#
-		chad = gigabin(None, (prdb / 'temp_shite' / f'{preview_name}.chad'))
+		chad = gigabin((prdb / 'temp_shite' / f'{preview_name}.chad'), True)
 
 		# add previews one by one
 		for giga in range(3):
 			giga_name = (prdb / 'temp_shite' / f'{preview_name}{giga+1}.webp')
-			chad.add_file({
-				'name': f'frn{giga+1}',
-				'data': giga_name.read_bytes(),
-				'overwrite': True
-			})
+			chad.add_solid(
+				f'frn{giga+1}',
+				giga_name.read_bytes(),
+				False
+			)
 			# delete file afterwards
-			giga_name.unlink(missing_ok=True)
+			# giga_name.unlink(missing_ok=True)
 
 
 		index_json = {
 			'dimensions': vid_res,
-			'lizards': 'sexy'
+			'lizards': 'sexy',
+			'debug': str(prdb / 'temp_shite' / f'{preview_name}{1}.webp')
 		}
 
 		# write info
-		chad.add_file({
-			'name': 'index',
-			'data': json.dumps(index_json).encode(),
-			'overwrite': True
-		})
+		chad.add_solid(
+			'index',
+			json.dumps(index_json).encode(),
+			True
+		)
 
 
 		# finally, return gigabin with all the previews

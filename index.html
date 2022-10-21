@@ -9,9 +9,16 @@
 		<link rel="stylesheet" type="text/css" href="css_index.css">
 	</head>
 
-	<body logged_in="false">
+	<body 
+		logged_in="false" 
+		ondragleave="file_pool_drag_leave_react()" 
+		ondrop="file_pool_drop_react(event)" 
+		ondragover="file_pool_hover_react(event)" 
+		ondragenter="file_pool_drag_enter_react()" 
+	>
 		<div id="app_topbar">
 			<div id="topbar_name">Bootlegger</div>
+			<btn id="nav_go_home">Home</btn>
 			<div id="topbar_limits">Solid Block DL | Chrome: (hdd_free_total / 3) * 0.20 || Firefox: 50mb+*no limit* w/ settings tweaking || Upload no limits</div>
 			<div id="topbar_nav">
 				<btn id="nav_enter_edit">Admin</btn>
@@ -25,6 +32,7 @@
 	<!-- LIBS -->
 	<script src='./apis/jquery/3_6_0/jquery.min.js'></script>
 	<script src='./apis/toolbox/toolbox.js'></script>
+	<script src='./apis/jszip/3_2_0/jszip.min.js'></script>
 	<!-- important todo: localize these libraries -->
 	<!-- <script src='https://raw.githubusercontent.com/MrKleiner/liz3_toybox_webtools/main/sex_toys/shared/toolbox.js'></script> -->
 	<!-- <script src='https://raw.githubusercontent.com/MrKleiner/liz3_toybox_webtools/main/sex_toys/gigabin_js/gigabin_js.js'></script> -->
@@ -56,6 +64,9 @@
 
 	<!-- pool -->
 	<script src='./mods_c/main_pool/main_pool.js'></script>
+
+	<!-- TEMP upload -->
+	<script src='./mods_c/ft/ft.js'></script>
 
 
 

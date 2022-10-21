@@ -147,7 +147,7 @@ admin .alw_list .allowance
 }
 
 
-admin btn#alw_add_folder, admin btn#alw_add_admin
+admin btn.alw_add_folder, admin btn.alw_add_admin
 {
 	margin-top: 10px;
 	padding: 1px 7px 1px 7px;
@@ -157,13 +157,13 @@ admin btn#alw_add_folder, admin btn#alw_add_admin
 	font-size: 13px;
 }
 
-admin .alw_list_folders input.alw_folderpath_input
+admin .alw_list_folders input.alw_folderpath_input, admin .alw_list_admin input.alw_admin_input
 {
 	width: 20%;
 }
 
 
-admin .alw_list_folders .alw_kill_folder
+admin .alw_list_folders .alw_kill_folder, admin .alw_list_admin .alw_kill_admin
 {
 	align-self: center;
 	height: 15px;
@@ -175,13 +175,13 @@ admin .alw_list_folders .alw_kill_folder
 
 
 
-admin .alw_list_folders .alw_kill_folder:active
+admin .alw_list_folders .alw_kill_folder:active, admin .alw_list_admin .alw_kill_admin:active
 {
 	filter: invert(53%) sepia(53%) saturate(530%) hue-rotate(317deg) brightness(92%) contrast(103%);
 }
 
-
-admin .alw_list_folders .alw_folderpath_entry
+/*todo: this is messed up*/
+admin .alw_list_folders .alw_folderpath_entry, admin .alw_list_admin .alw_admin_entry
 {
 	display: flex;
 	margin-top: 10px;
@@ -191,3 +191,9 @@ admin .alw_list_folders .alw_folderpath_entry
 
 
 
+#spawn_new_user, #save_users
+{
+	width: fit-content;
+	flex-grow: 0;
+	margin: 3px;
+}

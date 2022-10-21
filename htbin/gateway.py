@@ -10,11 +10,15 @@ from vidman.vidman import *
 from profiles.login import *
 from profiles.profiler import *
 from poolsys.poolsys import *
+from ft.upload import *
 cgitb.enable()
 
 output = sys.stdout.buffer.write
 
 
+# important todo: it'd actually be better to do this multi-file...
+# the setup could be totally done trough classes
+# so that the setup in the very beginning of every file is as short as initting a class
 
 
 # =============================================
@@ -51,6 +55,7 @@ server = {
 # auth_db root
 auth_db = json.loads(Path(server['cfg']['clearance_db']).read_bytes())
 
+server['auth_cl'] = auth_db.get(url_params.get('auth'))
 
 
 # =============================================
@@ -64,10 +69,11 @@ auth_db = json.loads(Path(server['cfg']['clearance_db']).read_bytes())
 
 
 # =============================================
-#					Init all systems (why??)
+#					Init all systems (why??) ?
 # =============================================
 
 pool_sys = poolsys(url_params, byte_data, server)
+upload_sys = imaliar(url_params, byte_data, server)
 
 
 
@@ -103,7 +109,7 @@ pool_sys = poolsys(url_params, byte_data, server)
 # 2446: invalid auth username
 # 314: invalid auth password
 
-
+# 10092007: requested upload file already exists
 
 # structure: Params, Data, server root folder
 # only bother if auth parameter is present
@@ -190,6 +196,16 @@ if url_params.get('action') and url_params.get('auth'):
 		output(pool_sys.load_fullres_pic)
 
 
+
+
+	#
+	# Temp upload
+	#
+	
+	# clearance is always needed for this action
+	# if url_params['action'] == 'upload_sys.tmp_upload_file' and auth_cl != None:
+	if url_params['action'] == 'upload_sys.tmp_upload_file':
+		output(upload_sys.accept_file.encode())
 
 
 
