@@ -37,7 +37,8 @@ document.addEventListener('click', tr_event => {
 	if (event.target.closest('#app_topbar #nav_login')){window.bootlegger.login.load_module()}
 	if (event.target.closest('#app_topbar #nav_sign_out')){window.bootlegger.login.logout()}
 	if (event.target.closest('#app_topbar #nav_enter_edit')){window.bootlegger.admin.load_module()}
-	if (event.target.closest('#app_topbar #nav_go_home')){window.bootlegger.main_pool.module_loader()}
+	if (event.target.closest('#app_topbar #nav_go_home')){window.bootlegger.main_pool.home_button()}
+	if (event.target.closest('#app_topbar #nav_display_help, #help_overlay')){window.bootlegger.core.display_help()}
 
 
 
@@ -60,6 +61,7 @@ document.addEventListener('click', tr_event => {
 	if (event.target.closest('mpool flist flist-entry.struct_entry')){window.bootlegger.main_pool.list_media(event.target.closest('mpool flist flist-entry.struct_entry'))}
 	if (event.target.closest('mpool flist flist-entry.media_entry')){window.bootlegger.main_pool.load_fullres_media(event.target.closest('mpool flist flist-entry.media_entry'))}
 	if (event.target.closest('img#pic_fullres_preview')){window.bootlegger.main_pool.viewing_fullres = false;$('img#pic_fullres_preview').remove()}
+	if (event.target.closest('#exec_dlq_download')){window.bootlegger.ft.process_download_queue()}
 
 
 
@@ -94,6 +96,21 @@ document.addEventListener('keydown', tr_event => {
 	// ==========================================
 
 	if (event.target.closest('body')){window.bootlegger.main_pool.img_cycle_lr(tr_event, event.target.closest('body'))}
+	if (event.target.closest('body')){window.bootlegger.main_pool.select_all_in_folder(tr_event)}
+
+
+});
+
+
+document.addEventListener('contextmenu', tr_event => {
+
+
+	// ==========================================
+	// 	main_pool main_pool
+	// ==========================================
+
+	if (event.target.closest('flist-entry.media_entry')){window.bootlegger.main_pool.add_media_entry_to_selection(tr_event, event.target.closest('flist-entry.media_entry'))}
+	if (event.target.closest('img#pic_fullres_preview')){window.bootlegger.main_pool.download_image_from_fullres(tr_event, event.target.closest('img#pic_fullres_preview'))}
 
 
 });

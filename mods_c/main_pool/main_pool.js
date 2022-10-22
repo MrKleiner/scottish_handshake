@@ -20,7 +20,12 @@ window.bootlegger.main_pool.set_flist_view_type = function(tp='list')
 window.bootlegger.main_pool.module_loader = async function()
 {
 	await window.bootlegger.core.sysloader('main_pool', true);
+	window.bootlegger.main_pool.load_root_dir()
 
+}
+
+window.bootlegger.main_pool.load_root_dir = async function()
+{
 	// list root shite
 	const roots = await window.bootlegger.core.py_get(
 		{
@@ -30,6 +35,7 @@ window.bootlegger.main_pool.module_loader = async function()
 	)
 
 	print('fuck this shit', roots)
+	window.bootlegger.main_pool.update_vis_path()
 
 	$('mpool flist').empty();
 	window.bootlegger.main_pool.set_flist_view_type('list');
@@ -46,12 +52,12 @@ window.bootlegger.main_pool.module_loader = async function()
 }
 
 
-
 window.bootlegger.main_pool.list_league_matches = async function(elm)
 {
 	const fld_name = elm.getAttribute('fldname');
 
 	window.league = fld_name;
+	window.bootlegger.main_pool.update_vis_path()
 
 	const full_root = (await window.bootlegger.core.load_dbfile('root.json', 'json'))['root_path']
 
@@ -78,7 +84,7 @@ window.bootlegger.main_pool.list_league_matches = async function(elm)
 	}
 	// now prepend go up
 	$('mpool flist').prepend(`
-		<flist-entry class="folder" onclick="window.bootlegger.main_pool.module_loader()">
+		<flist-entry class="folder" onclick="window.league = null; window.bootlegger.main_pool.load_root_dir()">
 			<etype folder>
 			</etype>
 			<ename>../</ename>
@@ -96,6 +102,7 @@ window.bootlegger.main_pool.list_match_struct = async function(elm)
 	const fld_name = elm.getAttribute('fldpath');
 
 	window.league_match = fld_name;
+	window.bootlegger.main_pool.update_vis_path()
 
 	const dirlisting = await window.bootlegger.core.py_get(
 		{
@@ -122,7 +129,7 @@ window.bootlegger.main_pool.list_match_struct = async function(elm)
 
 	// now prepend go up
 	$('mpool flist').prepend(`
-		<flist-entry fldname="${window.league}" class="folder" onclick="window.bootlegger.main_pool.list_league_matches(this)">
+		<flist-entry fldname="${window.league}" class="folder" onclick="window.league_match = null; window.bootlegger.main_pool.list_league_matches(this)">
 			<etype folder>
 			</etype>
 			<ename>../</ename>
@@ -139,6 +146,7 @@ window.bootlegger.main_pool.list_media = async function(elm)
 	const fld_name = elm.getAttribute('fldpath');
 
 	window.struct_fld = fld_name;
+	window.bootlegger.main_pool.update_vis_path()
 
 	window.bootlegger.main_pool.dirlisting = await window.bootlegger.core.py_get(
 		{
@@ -154,7 +162,7 @@ window.bootlegger.main_pool.list_media = async function(elm)
 	window.bootlegger.main_pool.set_flist_view_type('grid');
 
 	$('mpool flist').prepend(`
-		<flist-entry fldpath="${window.league_match}" class="folder match" onclick="window.bootlegger.main_pool.list_match_struct(this)">
+		<flist-entry fldpath="${window.league_match}" class="folder match" onclick="window.struct_fld = null; window.bootlegger.main_pool.list_match_struct(this)">
 			<etype dir_up>
 			</etype>
 			<ename>../</ename>
@@ -289,3 +297,77 @@ window.bootlegger.main_pool.img_cycle_lr = function(arrow, elm)
 	}
 }
 
+
+window.bootlegger.main_pool.media_selection = [];
+window.bootlegger.main_pool.add_media_entry_to_selection = function(evt, med)
+{
+	if (evt){evt.preventDefault()}
+	const media_path = med.getAttribute('flpath');
+	const media_name = media_path.split('/').at(-1);
+	if (!window.bootlegger.main_pool.media_selection.includes(media_path) && media_path){
+		window.bootlegger.main_pool.media_selection.push(media_path);
+		med.classList.add('media_entry_selected');
+		$('mpool dlq #dlq_list').append(`<div media_path="${media_path}" class="dlq_item">${media_name}</div>`);
+	}else{
+		// esle - remove from selection
+		const item_index = window.bootlegger.main_pool.media_selection.indexOf(media_path);
+		window.bootlegger.main_pool.media_selection.splice(item_index, 1);
+		med.classList.remove('media_entry_selected');
+		$(`mpool dlq #dlq_list .dlq_item[media_path="${media_path}"]`).remove();
+	}
+}
+
+
+window.bootlegger.main_pool.clear_media_dl_queue = function()
+{
+	window.bootlegger.main_pool.media_selection = [];
+	$('flist-entry').removeClass('media_entry_selected');
+	$(`mpool dlq #dlq_list .dlq_item`).remove();
+}
+
+
+window.bootlegger.main_pool.update_vis_path = function()
+{
+	// $('#mpool_tobpar #vispath').text(`${window.league || ''}/${window.league_match || ''}/${window.struct_fld || ''}`)
+	$('#mpool_tobpar #vispath').text(
+		(window.league ? (window.league + '/') : '')
+		+
+		(window.league_match ? (window.league_match + '/') : '')
+		+
+		(window.struct_fld ? (window.struct_fld + '/') : '')
+	)
+}
+
+
+window.bootlegger.main_pool.select_all_in_folder = function(evt)
+{
+	if (evt.ctrlKey && evt.keyCode == 65){
+		evt.preventDefault()
+		for (var kms of document.querySelectorAll('flist-entry.media_entry')){
+			window.bootlegger.main_pool.add_media_entry_to_selection(null, kms)
+		}
+	}
+
+}
+
+window.bootlegger.main_pool.home_button = function()
+{
+	window.league = null;
+	window.league_match = null;
+	window.struct_fld = null;
+	window.bootlegger.main_pool.update_vis_path()
+	// if current sys name is main pool - don't reset the queue
+	if (window.current_sys == 'main_pool'){
+		window.bootlegger.main_pool.load_root_dir()
+	}else{
+		window.bootlegger.main_pool.module_loader()
+	}
+}
+
+
+window.bootlegger.main_pool.download_image_from_fullres = function(evt, elm)
+{
+	evt.preventDefault()
+	const flname = $(`flist-entry[img_cache="${elm.src}"]`).attr('flname');
+	saveAs(elm.src, flname)
+}

@@ -34,6 +34,13 @@
 			"pass_event": false,
 			"pass_element": false,
 			"pass_params": ""
+		},
+		{
+			"selector": "#exec_dlq_download",
+			"function": "window.bootlegger.ft.process_download_queue",
+			"pass_event": false,
+			"pass_element": false,
+			"pass_params": ""
 		}
 	],
 
@@ -41,6 +48,29 @@
 		{
 			"selector": "body",
 			"function": "window.bootlegger.main_pool.img_cycle_lr",
+			"pass_event": true,
+			"pass_element": true,
+			"pass_params": ""
+		},
+		{
+			"selector": "body",
+			"function": "window.bootlegger.main_pool.select_all_in_folder",
+			"pass_event": true,
+			"pass_element": false,
+			"pass_params": ""
+		}
+	],
+	"contextmenu": [
+		{
+			"selector": "flist-entry.media_entry",
+			"function": "window.bootlegger.main_pool.add_media_entry_to_selection",
+			"pass_event": true,
+			"pass_element": true,
+			"pass_params": ""
+		},
+		{
+			"selector": "img#pic_fullres_preview",
+			"function": "window.bootlegger.main_pool.download_image_from_fullres",
 			"pass_event": true,
 			"pass_element": true,
 			"pass_params": ""

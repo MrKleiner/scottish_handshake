@@ -1,4 +1,38 @@
 
+*::-webkit-scrollbar {
+	width: 1em;
+	height: 0.3em;
+	background: gray;
+}
+ 
+*::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+*::-webkit-scrollbar-thumb {
+	/*background-color: black;*/
+	background-color: #12141C;
+	/* outline: 1px solid slategrey; */
+}
+
+
+*::-moz-scrollbar {
+	width: 1em;
+	background: gray;
+}
+ 
+*::-moz-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+*::-moz-scrollbar-thumb {
+	/*background-color: black;*/
+	background-color: #12141C;
+	/* outline: 1px solid slategrey; */
+}
+
+
+
 
 /*Buttons regular*/
 
@@ -173,15 +207,72 @@ html[static] #pages_pool
 {
 	align-items: center;
 	justify-content: center;
+	margin-left: 15px;
 }
 
 
+#app_topbar #topbar_left
+{
+	display: flex;
+}
 
 
+#app_topbar #nav_display_help
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 10px;
+}
+
+#help_overlay
+{
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.95);
+	align-items: center;
+}
+
+#help_overlay.hidden
+{
+	display: none !important;
+}
 
 
+help-dir
+{
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	margin-top: 30px;
+}
 
 
+help-dir help-entry
+{
+    /*display: flex;*/
+    padding: 3px;
+    margin-top: 10px;
+    border-left: 2px solid #bfffc8;
+}
+
+help-dir help-entry span[green]
+{
+	color: #41E654;
+}
+
+help-dir help-entry span[red]
+{
+	color: #E65141;
+}
+
+help-header
+{
+	font-size: 50px;
+}
 
 
 
@@ -215,6 +306,13 @@ Global App Tobar
 	margin-left: 10px;
 	font-size: 20px;
 	color: rgb(200, 200, 200);
+
+    width: 70px;
+    background-image: url('../../assets/hat.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: scale(2);
 }
 
 #topbar_nav
@@ -237,7 +335,8 @@ Global App Tobar
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: #EA6D6D;
+	/*color: #EA6D6D;*/
+	color: #EAD16D;
 	margin: 0px 10px 0px 10px;
 	font-size: 14px;
 }

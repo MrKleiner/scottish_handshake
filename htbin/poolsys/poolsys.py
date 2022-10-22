@@ -81,7 +81,7 @@ class poolsys:
 
 	@property
 	def list_media(self):
-		import json
+		import json, os
 		from pathlib import Path
 
 		matches = []
@@ -89,6 +89,7 @@ class poolsys:
 		for match in (self.sysroot / Path(self.prms['target'])).glob('*'):
 			if match.suffix.strip('.').lower() in self.allowed_vid:
 				matches.append({
+					'lfs': (True if os.stat(file_name).st_size >= ((1024**2)*100) else False)
 					'etype': 'vid',
 					'path': str(match),
 					'flname': match.name
@@ -164,7 +165,7 @@ class poolsys:
 			'-lossless', '0',
 			# lossless compression
 			# (now is lossy)
-			'-compression_level', '6',
+			# '-compression_level', '6',
 			'-qscale', '50',
 			# output to stdout
 			'pipe:'

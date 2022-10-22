@@ -23,7 +23,14 @@
 		},
 		{
 			"selector": "#app_topbar #nav_go_home",
-			"function": "window.bootlegger.main_pool.module_loader",
+			"function": "window.bootlegger.main_pool.home_button",
+			"pass_event": false,
+			"pass_element": false,
+			"pass_params": ""
+		},
+		{
+			"selector": "#app_topbar #nav_display_help, #help_overlay",
+			"function": "window.bootlegger.core.display_help",
 			"pass_event": false,
 			"pass_element": false,
 			"pass_params": ""

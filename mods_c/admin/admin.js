@@ -95,13 +95,13 @@ window.bootlegger.admin.load_acl_list = async function()
 					</div>
 
 					<div class="alw_list_admin">
-						<div class="alw_type_header">Permissions:</div>
+						<div class="alw_type_header">Folders:</div>
 						<div class="alw_allowance_pool">${clearances['admin'].join('')}</div>
 						<btn class="alw_add_admin">Add</btn>
 					</div>
 
 					<div class="alw_list_folders">
-						<div class="alw_type_header">Folders:</div>
+						<div class="alw_type_header">Commands:</div>
 						<div class="alw_folders_pool">${clearances['folders'].join('')}</div>
 						<btn class="alw_add_folder">Add</btn>
 					</div>

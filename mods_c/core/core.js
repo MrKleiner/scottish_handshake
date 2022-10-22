@@ -100,6 +100,7 @@ window.bootlegger.core.sysloader = async function(sysname=null, static=false)
 			}
 			response.text().then(function(data) {
 				print('Found requested panel on server, loading...', sysname, data)
+				window.current_sys = sysname;
 				document.querySelector('#pages_pool').innerHTML = data;
 				if (static == true){
 					document.querySelector('html').setAttribute('static', true);
@@ -335,7 +336,6 @@ window.bootlegger.core.file_to_bytes = async function(file, doblob=false)
 	    	}else{
 	    		resolve(reader.result)
 	    	}
-			
 		};
 	});
 }
@@ -344,4 +344,11 @@ window.bootlegger.core.file_to_bytes = async function(file, doblob=false)
 async function wtf_kill_js()
 {
 	window.bootlegger.core.fsys_root = (await window.bootlegger.core.load_dbfile('root.json', 'json'))['root_path'];
+}
+
+
+
+window.bootlegger.core.display_help = function()
+{
+	$('#help_overlay').toggleClass('hidden');
 }

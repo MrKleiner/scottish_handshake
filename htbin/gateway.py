@@ -207,6 +207,15 @@ if url_params.get('action') and url_params.get('auth'):
 	if url_params['action'] == 'upload_sys.tmp_upload_file':
 		output(upload_sys.accept_file.encode())
 
+	if url_params['action'] == 'upload_sys.lfs_create':
+		output(upload_sys.lfs_create.encode())
+
+	if url_params['action'] == 'upload_sys.lfs_append':
+		output(upload_sys.lfs_append.encode())
+
+	if url_params['action'] == 'upload_sys.lfs_collapse':
+		output(upload_sys.lfs_collapse.encode())
+
 
 
 
