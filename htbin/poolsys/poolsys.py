@@ -89,7 +89,8 @@ class poolsys:
 		for match in (self.sysroot / Path(self.prms['target'])).glob('*'):
 			if match.suffix.strip('.').lower() in self.allowed_vid:
 				matches.append({
-					'lfs': (True if os.stat(file_name).st_size >= ((1024**2)*100) else False)
+					'lfs': (True if os.stat(str(match)).st_size >= ((1024**2)*3) else False),
+					'stats': f"""{((1024**2)*3)}/{os.stat(str(match)).st_size}""",
 					'etype': 'vid',
 					'path': str(match),
 					'flname': match.name
@@ -192,6 +193,9 @@ class poolsys:
 	@property
 	def load_fullres_pic(self):
 		from pathlib import Path
+		import os
+		if os.stat(self.prms['target']).st_size > ((1024**2)*100):
+			return 'file is too big'.encode()
 
 		return Path(self.prms['target']).read_bytes()
 	
@@ -205,6 +209,7 @@ class poolsys:
 		sys.path.append('.')
 		from gigabin_py import gigabin
 		from util import eval_hash, even_points
+		return
 
 		prdb = Path(self.server['cfg']['preview_db'])
 
@@ -326,3 +331,11 @@ class poolsys:
 
 		# finally, return gigabin with all the previews
 		return (prdb / 'temp_shite' / f'{preview_name}.chad').read_bytes()
+
+
+	@property
+	def load_lfs(self):
+		rt = b''
+		rt += f"""Content-Disposition: attachment; filename="{self.prms['lfs_name']}"\r\n""".encode()
+		rt += f"""X-Sendfile: {self.prms['lfs']}\r\n\r\n""".encode()
+		return rt

@@ -178,14 +178,30 @@ $this.list_media = async function(elm)
 		)
 		// print(media_preview)
 		// return
+		if (lst['lfs'] == true){
+			const urlParams = new URLSearchParams({
+				'action': 'get_lfs',
+				'auth': 'ftp',
+				'lfs_name': lst['flname'],
+				'lfs': lst['path']
+			});
+			var media_entry = $(`
+				<flist-entry class="media_entry lfs_entry" flpath="${lst['path']}" flname="${lst['flname']}">
+					<etype style="background-image: url(${media_preview})" img>
+					</etype>
+					<a class="ename" href="htbin/lfs.py?${urlParams.toString()}">${lst['flname']}</a>
+				</flist-entry>
+			`)
+		}else{
+			var media_entry = $(`
+				<flist-entry class="media_entry" flpath="${lst['path']}" flname="${lst['flname']}">
+					<etype style="background-image: url(${media_preview})" img>
+					</etype>
+					<ename>${lst['flname']}</ename>
+				</flist-entry>
+			`)
+		}
 
-		var media_entry = $(`
-			<flist-entry class="media_entry" flpath="${lst['path']}" flname="${lst['flname']}">
-				<etype style="background-image: url(${media_preview})" img>
-				</etype>
-				<ename>${lst['flname']}</ename>
-			</flist-entry>
-		`)
 
 		$('mpool flist').append(media_entry);
 

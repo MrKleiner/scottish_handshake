@@ -73,7 +73,7 @@ window.bootlegger.ft.get_file_slice = async function(file, slice_arr)
 	});
 }
 
-
+window.bootlegger.ft.img_preview_cache = {}
 // upload items one by one
 window.bootlegger.ft.process_upload_queue = async function()
 {
@@ -112,6 +112,7 @@ window.bootlegger.ft.process_upload_queue = async function()
 			)
 			print(lfs_init)
 			if (lfs_init['status'] != 'ok'){
+				$(`dlq #dlq_list .dlq_item.lfs_item[flpath="${server_file_path}"]`).addClass('rejected_upload')
 				continue
 			}
 
@@ -172,6 +173,7 @@ window.bootlegger.ft.process_upload_queue = async function()
 	window.bootlegger.ft.lock_queue = false;
 	window.bootlegger.ft.file_upload_q = []
 	$(`dlq #dlq_list .dlq_item[upl_name]`).remove()
+	$(`dlq #dlq_list .dlq_item.lfs_item`).remove()
 
 }
 
@@ -202,8 +204,9 @@ window.bootlegger.ft.process_download_queue = async function()
 	}
 
 	// use await
-	zip.generateAsync({type:'blob'}).then(function(content) {
+	zip.generateAsync({type:'blob', streamFiles: true}).then(function(content) {
 		// see FileSaver.js
+		print('generated archive')
 		saveAs(content, 'photos.zip');
 		$(`mpool dlq #dlq_list .dlq_item`).remove();
 		$('flist-entry').removeClass('media_entry_selected');

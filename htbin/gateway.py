@@ -195,6 +195,9 @@ if url_params.get('action') and url_params.get('auth'):
 	if url_params['action'] == 'poolsys.load_fullres_pic':
 		output(pool_sys.load_fullres_pic)
 
+	if url_params['action'] == 'get_lfs':
+		output(pool_sys.load_lfs)
+
 
 
 

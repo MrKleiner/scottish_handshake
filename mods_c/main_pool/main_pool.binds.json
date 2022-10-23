@@ -22,7 +22,7 @@
 			"pass_params": ""
 		},
 		{
-			"selector": "mpool flist flist-entry.media_entry",
+			"selector": "mpool flist flist-entry.media_entry:not(.lfs_entry)",
 			"function": "window.bootlegger.main_pool.load_fullres_media",
 			"pass_event": false,
 			"pass_element": true,
@@ -62,7 +62,7 @@
 	],
 	"contextmenu": [
 		{
-			"selector": "flist-entry.media_entry",
+			"selector": "flist-entry.media_entry:not(.lfs_entry)",
 			"function": "window.bootlegger.main_pool.add_media_entry_to_selection",
 			"pass_event": true,
 			"pass_element": true,

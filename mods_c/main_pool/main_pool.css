@@ -6,6 +6,7 @@ mpool
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
+	/*margin-bottom: 43px;*/
 }
 
 mpool #mpool_tobpar
@@ -54,7 +55,7 @@ mpool flist
 	flex-grow: 1;
 	padding: 2px;
 	overflow-y: scroll;
-	padding-bottom: 55px;
+	margin-bottom: 55px;
 }
 
 img#pic_fullres_preview
@@ -174,7 +175,7 @@ mpool[list] flist flist-entry etype
 }
 
 
-mpool[list] flist flist-entry ename
+mpool[list] flist flist-entry ename, mpool[list] flist flist-entry a.ename
 {
 	display: flex;
 	/* display: block; */

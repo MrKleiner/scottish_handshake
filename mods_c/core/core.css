@@ -102,13 +102,22 @@ btn[lite]:active
 
 
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
 
-
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}
 
 
 /*inputs default styling*/
 
-input[type='text'], input[type='password']
+input[type='text'], input[type='password'], input[type='number']
 {
 	/* all: unset; */
 	color: white;
@@ -119,7 +128,7 @@ input[type='text'], input[type='password']
 	outline: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-input[type='text']:focus, input[type='password']:focus
+input[type='text']:focus, input[type='password']:focus, input[type='number']:focus
 {
 	outline: 1px solid #1b8d4e;
 }
@@ -369,3 +378,7 @@ body[logged_in="false"] #nav_sign_out, body[logged_in="false"] #nav_enter_edit
 
 
 
+#dev_hidden
+{
+	display: none !important;
+}

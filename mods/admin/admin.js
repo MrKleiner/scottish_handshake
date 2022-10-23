@@ -38,6 +38,24 @@ $this.load_module = async function()
 	//
 	$this.load_acl_list()
 
+	//
+	// Spawn dropdowns
+	//
+
+/*	lzdrops.spawn(
+		'#command_left',
+		'command_left',
+		{
+			'menu_name': 'Command',
+			'menu_entries': [
+				{
+					'name': 'Half-Life 2',
+					'dropdown_set': '220'
+				}
+			]
+		}
+	);*/
+
 }
 
 $this.load_acl_list = async function()
