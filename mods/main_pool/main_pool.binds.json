@@ -36,11 +36,25 @@
 			"pass_params": ""
 		},
 		{
-			"selector": "#exec_dlq_download",
+			"selector": "mpool #exec_dlq_download",
 			"function": "$all.ft.process_download_queue",
 			"pass_event": false,
 			"pass_element": false,
 			"pass_params": ""
+		},
+		{
+			"selector": "mpool #select_all_items",
+			"function": "$this.select_all_in_folder",
+			"pass_event": false,
+			"pass_element": false,
+			"pass_params": ""
+		},
+		{
+			"selector": "mpool",
+			"function": "$('flist-entry').removeClass",
+			"pass_event": false,
+			"pass_element": false,
+			"pass_params": "'arrow_cycle_hint'"
 		}
 	],
 

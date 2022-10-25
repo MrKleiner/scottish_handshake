@@ -1,6 +1,8 @@
 
 /* Core */
 @import url('mods_c/core/core.css');
+@import url('mods_c/core/dropdowns.css');
+@import url('mods_c/core/simple_menus_style.css');
 
 /* Home */
 @import url('mods_c/home/home.css');

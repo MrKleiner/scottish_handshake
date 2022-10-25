@@ -118,7 +118,8 @@ window.bootlegger.ft.process_upload_queue = async function()
 
 			// keep sending shit
 			var offs = 0;
-			const chunk_size = (1024**2)*2
+			// const chunk_size = (1024**2)*2
+			const chunk_size = (1024**2)*5
 			while (true){
 				var fl_slice = await window.bootlegger.ft.get_file_slice(thefile, [offs, offs+chunk_size])
 				if (fl_slice.byteLength <= 0){break}
@@ -146,7 +147,8 @@ window.bootlegger.ft.process_upload_queue = async function()
 			)
 			$(`dlq #dlq_list .dlq_item.lfs_item[flpath="${server_file_path}"]`).remove()
 			print(close_lfs)
-			await window.bootlegger.main_pool.temp_lies(`${window.bootlegger.core.fsys_root}/${server_file_path}`)
+			// await window.bootlegger.main_pool.temp_lies(`${window.bootlegger.core.fsys_root}/${server_file_path}`)
+			await window.bootlegger.main_pool.list_media(null, window.struct_fld)
 			window.localStorage.removeItem('q_break_name')
 			continue
 		}

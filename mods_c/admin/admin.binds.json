@@ -6,6 +6,13 @@
 			"pass_event": false,
 			"pass_element": true,
 			"pass_params": ""
+		},
+		{
+			"selector": "admin f-comp #plus_days",
+			"function": "window.bootlegger.admin.eval_match_name_hint",
+			"pass_event": false,
+			"pass_element": false,
+			"pass_params": ""
 		}
 	],
 	"click": [
@@ -63,6 +70,29 @@
 			"function": "window.bootlegger.admin.save_allowance_list",
 			"pass_event": false,
 			"pass_element": false,
+			"pass_params": ""
+		},
+		{
+			"selector": "admin f-comp #commands lzdropdown [dropdown_set]",
+			"function": "window.bootlegger.admin.eval_match_name_hint",
+			"pass_event": false,
+			"pass_element": false,
+			"pass_params": ""
+		},
+		{
+			"selector": "admin f-comp #spawn_match_struct",
+			"function": "window.bootlegger.admin.spawn_match_struct",
+			"pass_event": false,
+			"pass_element": false,
+			"pass_params": ""
+		}
+	],
+	"contextmenu": [
+		{
+			"selector": "admin #folder_maker #foldmaker_pool > .team",
+			"function": "window.bootlegger.admin.select_team_folder",
+			"pass_event": true,
+			"pass_element": true,
 			"pass_params": ""
 		}
 	]

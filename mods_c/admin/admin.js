@@ -46,19 +46,41 @@ window.bootlegger.admin.load_module = async function()
 	// Spawn dropdowns
 	//
 
-/*	lzdrops.spawn(
+	// supposedly, root listing is also a list of all the commands
+	const cmds = await window.bootlegger.core.py_get(
+		{
+			'action': 'poolsys.list_leagues'
+		},
+		'json'
+	)
+
+	// now generate applicable menu entries
+	var menu_entries = []
+	for (var cmd of cmds){
+		menu_entries.push({
+			'name': cmd,
+			'dropdown_set': cmd
+		})
+	}
+
+	lzdrops.spawn(
 		'#command_left',
 		'command_left',
 		{
 			'menu_name': 'Command',
-			'menu_entries': [
-				{
-					'name': 'Half-Life 2',
-					'dropdown_set': '220'
-				}
-			]
+			'menu_entries': menu_entries
 		}
-	);*/
+	);
+	lzdrops.spawn(
+		'#command_right',
+		'command_right',
+		{
+			'menu_name': 'Command',
+			'menu_entries': menu_entries
+		}
+	);
+
+	window.bootlegger.admin.load_folder_makers()
 
 }
 
@@ -282,7 +304,76 @@ window.bootlegger.admin.save_allowance_list = async function(usr)
 
 
 
+window.bootlegger.admin.eval_match_name_hint = function()
+{
+	const thedate = new Date();
+	// 1000 * (60**2) * 24 = 1 day in milliseconds
+	const mdate = new Date(thedate.getTime() + (int($('f-comp #plus_days').val().trim() || 0)*86400000))
+	const evalname = `${mdate.getFullYear()}_${str(mdate.getMonth()+1).zfill(2)}_${mdate.getDate()}_${lzdrops.pool['command_left'].active}-${lzdrops.pool['command_right'].active}`
+	$('f-comp #result').text(evalname)
+	// check whether this name exists already
+	$('.team_match').removeClass('dupli_name')
+	$(`.team_match[tmatch_name="${evalname}"]`).addClass('dupli_name')
+	// for (var exists of document.querySelectorAll(`.team_match[tmatch_name="${evalname}"]`)){
+	// 	exists.classList.add('dupli_name')
+	// }
+}
 
 
+window.bootlegger.admin.load_folder_makers = async function()
+{
+	const teams = await window.bootlegger.core.py_get(
+		{
+			'action': 'poolsys.list_matches_w_subroot'
+		},
+		'json'
+	)
 
+	print('got teams', teams)
 
+	// spawn root teams
+	$('#folder_maker #foldmaker_pool').empty()
+	for (var team in teams){
+		// spawn matches inside them
+		matches_e = []
+		for (var match of teams[team]){
+			matches_e.push(`<div tmatch_name="${match}" class="team_match">${match}</div>`)
+		}
+		$('#folder_maker #foldmaker_pool').append(`
+			<div tmname="${team}" class="team">
+				<div class="team_name">${team}</div>
+				<div class="team_matches_pool">${matches_e.join('')}</div>
+			</div>
+		`)
+	}
+}
+
+window.bootlegger.admin.select_team_folder = function(evt, tm)
+{
+	evt.preventDefault()
+	$('admin #folder_maker #foldmaker_pool > .team').removeClass('selected_team')
+	$(tm).addClass('selected_team')
+}
+
+window.bootlegger.admin.spawn_match_struct = async function()
+{
+	const spawn_tgt = $('f-comp #result').text().trim()
+	if (spawn_tgt == ''){
+		return
+	}
+	window.bootlegger.admin.selected_team_f = $('#foldmaker_pool .team.selected_team').attr('tmname')
+	const spawn_reply = await window.bootlegger.core.py_get(
+		{
+			'action': 'spawn_match_struct',
+			'team': window.bootlegger.admin.selected_team_f,
+			'newfld': spawn_tgt
+		},
+		'json'
+	)
+	print(spawn_reply)
+	await window.bootlegger.admin.load_folder_makers()
+	// re-select the team
+	$('admin #folder_maker #foldmaker_pool > .team').removeClass('selected_team')
+	$(`#foldmaker_pool .team[tmname="${window.bootlegger.admin.selected_team_f}"]`).addClass('selected_team')
+	window.bootlegger.admin.eval_match_name_hint()
+}

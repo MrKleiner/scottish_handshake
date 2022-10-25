@@ -152,6 +152,13 @@ if url_params.get('action') and url_params.get('auth'):
 		output(profiler_save_access_list(url_params, byte_data, server).encode())
 
 
+	#
+	# Spawn folder struct
+	#
+	if url_params['action'] == 'spawn_match_struct' and 'admin' in auth_cl['admin']:
+		output(spawn_match_struct(url_params, byte_data, server).encode())
+
+
 
 
 
@@ -179,6 +186,9 @@ if url_params.get('action') and url_params.get('auth'):
 	#
 	if url_params['action'] == 'poolsys.list_leagues':
 		output(pool_sys.list_leagues.encode())
+
+	if url_params['action'] == 'poolsys.list_matches_w_subroot':
+		output(pool_sys.list_matches_w_subroot.encode())
 
 	if url_params['action'] == 'poolsys.list_league_matches':
 		output(pool_sys.list_league_matches.encode())

@@ -140,10 +140,10 @@ window.bootlegger.main_pool.list_match_struct = async function(elm)
 
 
 
-window.bootlegger.main_pool.list_media = async function(elm)
+window.bootlegger.main_pool.list_media = async function(elm=null, manual=false)
 {
 	
-	const fld_name = elm.getAttribute('fldpath');
+	const fld_name = manual ? manual : elm.getAttribute('fldpath');
 
 	window.struct_fld = fld_name;
 	window.bootlegger.main_pool.update_vis_path()
@@ -191,19 +191,30 @@ window.bootlegger.main_pool.list_media = async function(elm)
 			});
 			var media_entry = $(`
 				<flist-entry class="media_entry lfs_entry" flpath="${lst['path']}" flname="${lst['flname']}">
-					<etype style="background-image: url(${media_preview})" img>
+					<etype novid>
 					</etype>
 					<a class="ename" href="htbin/lfs.py?${urlParams.toString()}">${lst['flname']}</a>
 				</flist-entry>
 			`)
 		}else{
-			var media_entry = $(`
-				<flist-entry class="media_entry" flpath="${lst['path']}" flname="${lst['flname']}">
-					<etype style="background-image: url(${media_preview})" img>
-					</etype>
-					<ename>${lst['flname']}</ename>
-				</flist-entry>
-			`)
+			if (lst['etype'] == 'file'){
+				var media_entry = $(`
+					<flist-entry class="media_entry" flpath="${lst['path']}" flname="${lst['flname']}">
+						<etype file>
+						</etype>
+						<ename>${lst['flname']}</ename>
+					</flist-entry>
+				`)
+			}else{
+				var media_entry = $(`
+					<flist-entry class="media_entry" flpath="${lst['path']}" flname="${lst['flname']}">
+						<etype style="background-image: url(${media_preview})" img>
+						</etype>
+						<ename>${lst['flname']}</ename>
+					</flist-entry>
+				`)
+			}
+
 		}
 
 
@@ -234,6 +245,7 @@ window.bootlegger.main_pool.temp_lies = async function(flpath)
 	// print(media_preview)
 	// return
 
+
 	var media_entry = $(`
 		<flist-entry class="media_entry" flpath="${flpath}" flname="${flpath.split('/').at(-1)}">
 			<etype style="background-image: url(${media_preview})" img>
@@ -256,6 +268,20 @@ window.bootlegger.main_pool.cache_fullres_media = function(url)
 	window.bootlegger.main_pool.fm_cache.push(url)
 }
 
+window.bootlegger.main_pool.await_img_load = function(imgsrc)
+{
+	return new Promise(function(resolve, reject){
+		var img = new Image();
+		img.onload = function() {
+			resolve(img)
+		}
+		img.onerror = function() {
+			resolve(img)
+		}
+		img.src = imgsrc;
+	});
+
+}
 
 window.bootlegger.main_pool.load_fullres_media = async function(elm)
 {
@@ -280,6 +306,7 @@ window.bootlegger.main_pool.load_fullres_media = async function(elm)
 		<img id="pic_fullres_preview" src="../assets/spinning_circle.svg">
 	`);
 
+
 	$('body').append(tgt)
 
 	const fullres = await window.bootlegger.core.py_get(
@@ -291,9 +318,16 @@ window.bootlegger.main_pool.load_fullres_media = async function(elm)
 	)
 
 	// print(fullres)
-
+	// Chrome still lags unlike firefox....
+	// Chrome is prone to lagging when many tabs are open at once
+	const img_l = await window.bootlegger.main_pool.await_img_load(fullres);
+	img_l.id = 'pic_fullres_preview'
+	tgt[0].replaceWith(img_l)
+	// $('#pic_fullres_preview').remove()
+	// img_l.id = 'pic_fullres_preview'
+	// document.body.append(img_l)
 	// update image src with loaded fullres preview
-	tgt[0].src = fullres
+	// tgt[0].src = fullres
 	// cache the image
 	elm.setAttribute('img_cache', fullres)
 	window.bootlegger.main_pool.cache_fullres_media(fullres)
@@ -311,6 +345,8 @@ window.bootlegger.main_pool.img_cycle_lr = function(arrow, elm)
 	if (arrow.keyCode == 39){
 		window.bootlegger.main_pool.load_fullres_media(window.bootlegger.main_pool.active_fullres_preview_elem.nextSibling)
 	}
+	$('flist-entry').removeClass('arrow_cycle_hint')
+	$(window.bootlegger.main_pool.active_fullres_preview_elem).addClass('arrow_cycle_hint')
 }
 
 
@@ -357,14 +393,40 @@ window.bootlegger.main_pool.update_vis_path = function()
 
 window.bootlegger.main_pool.select_all_in_folder = function(evt)
 {
-	if (evt.ctrlKey && evt.keyCode == 65){
+	// todo: this is ugly ?
+	if (window.current_sys != 'main_pool'){return}
+
+	if (evt){
+		if (!(evt.ctrlKey && evt.keyCode == 65)){
+			return
+		}
 		evt.preventDefault()
-		for (var kms of document.querySelectorAll('flist-entry.media_entry')){
+	}
+
+
+	// if everything out of everything is selected - deselect everything
+	const selected = $('flist-entry.media_entry.media_entry_selected').length
+	const everything = $('flist-entry.media_entry').length
+
+	if (selected == everything){
+		// deselect
+		for (var kms of document.querySelectorAll('flist-entry.media_entry.media_entry_selected')){
 			window.bootlegger.main_pool.add_media_entry_to_selection(null, kms)
 		}
+		return
+	}
+
+	// deselect selected
+	for (var kms of document.querySelectorAll('flist-entry.media_entry.media_entry_selected')){
+		window.bootlegger.main_pool.add_media_entry_to_selection(null, kms)
+	}
+	// Select everything
+	for (var kms of document.querySelectorAll('flist-entry.media_entry:not(.lfs_entry)')){
+		window.bootlegger.main_pool.add_media_entry_to_selection(null, kms)
 	}
 
 }
+
 
 window.bootlegger.main_pool.home_button = function()
 {

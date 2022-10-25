@@ -109,8 +109,10 @@ class imaliar:
 		# admin can upload wherever
 		if not 'admin' in self.server['auth_cl']['admin']:
 			# check league allowance
-			if not filedest.parent.parent.parent.name in self.server['auth_cl']['folders']:
-				return json.dumps({'status': '1809246/root'})
+			if filedest.parent.parent.parent.name in self.server['auth_cl']['folders'] or '%command' in self.server['auth_cl']['folders']:
+				pass
+			else:
+				return json.dumps({'status': '1809246/lfs/root'})
 
 			# now check whether allowed to upload to photos or moments
 			if not filedest.parent.name in self.server['auth_cl']['admin']:

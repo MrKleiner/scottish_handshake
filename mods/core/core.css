@@ -2,23 +2,30 @@
 *::-webkit-scrollbar {
 	width: 1em;
 	height: 0.3em;
-	background: gray;
+	/*background: rgb(90, 90, 90);*/
+	background: #121117;
+	/*border-radius: 99px;*/
 }
  
 *::-webkit-scrollbar-track {
-	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
  
 *::-webkit-scrollbar-thumb {
 	/*background-color: black;*/
-	background-color: #12141C;
+	/*background-color: #12141C;*/
+	/*background-color: #798cab;*/
+	background-color: #6e6e72;
+
+	/*border-radius: 99px;*/
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 1);
 	/* outline: 1px solid slategrey; */
 }
 
 
 *::-moz-scrollbar {
 	width: 1em;
-	background: gray;
+	background: rgb(90, 90, 90);
 }
  
 *::-moz-scrollbar-track {
@@ -27,7 +34,7 @@
  
 *::-moz-scrollbar-thumb {
 	/*background-color: black;*/
-	background-color: #12141C;
+	background-color: #121117;
 	/* outline: 1px solid slategrey; */
 }
 
@@ -168,12 +175,14 @@ Modules pool
 html
 {
 	/*display: flex;*/
-	background: #110f16;
+	/*background: #110f16;*/
 	color: white;
 	font-family: 'Arial';
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
+	/*background: #1E2328;*/
+	background: #181C1F;
 	/*flex-grow: 1;*/
 /*	height: -webkit-fill-available;
 	height: -moz-available;*/
@@ -216,7 +225,7 @@ html[static] #pages_pool
 {
 	align-items: center;
 	justify-content: center;
-	margin-left: 15px;
+	margin-left: 25px;
 }
 
 
@@ -378,7 +387,7 @@ body[logged_in="false"] #nav_sign_out, body[logged_in="false"] #nav_enter_edit
 
 
 
-#dev_hidden
+.foil_hidden
 {
 	display: none !important;
 }

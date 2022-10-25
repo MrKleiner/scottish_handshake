@@ -65,7 +65,7 @@ class simple_lizard_dropdowns
 			<lzdropdown lzdropname="${idname}" draggable="false" class="lzdropdpown">
 				<div class="lz_dn_title"><span style="color: #BC4141">None</span></div>
 				<div class="dn_arrow_icon">
-					<img src="assets/arrow_down.svg">
+					<img src="../../assets/arrow_down.svg">
 				</div>
 				<div class="lz_menu_entries foil_hidden">
 				</div>

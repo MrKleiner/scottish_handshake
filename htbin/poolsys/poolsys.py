@@ -61,6 +61,24 @@ class poolsys:
 
 
 	@property
+	def list_matches_w_subroot(self):
+		import json
+		from pathlib import Path
+		try:
+			mws = {}
+
+			for cmd in self.sysroot.glob('*'):
+				if not cmd.is_dir():
+					continue
+
+				mws[cmd.name] = [match.name for match in cmd.glob('*') if match.is_dir()]
+
+			return json.dumps(mws)
+		except Exception as e:
+			return json.dumps({})
+
+
+	@property
 	def list_league_matches(self):
 		import json
 		from pathlib import Path
@@ -87,6 +105,9 @@ class poolsys:
 		matches = []
 
 		for match in (self.sysroot / Path(self.prms['target'])).glob('*'):
+			if match.is_dir():
+				continue
+
 			if match.suffix.strip('.').lower() in self.allowed_vid:
 				matches.append({
 					'lfs': (True if os.stat(str(match)).st_size >= ((1024**2)*3) else False),
@@ -95,12 +116,24 @@ class poolsys:
 					'path': str(match),
 					'flname': match.name
 				})
+				continue
 			if match.suffix.strip('.').lower() in self.allowed_img:
 				matches.append({
+					'lfs': (True if os.stat(str(match)).st_size >= ((1024**2)*20) else False),
+					'stats': f"""{((1024**2)*20)}/{os.stat(str(match)).st_size}""",
 					'etype': 'img',
 					'path': str(match),
 					'flname': match.name
 				})
+				continue
+
+			matches.append({
+				'lfs': (True if os.stat(str(match)).st_size >= ((1024**2)*3) else False),
+				'stats': f"""{((1024**2)*3)}/{os.stat(str(match)).st_size}""",
+				'etype': 'file',
+				'path': str(match),
+				'flname': match.name
+			})
 		
 		return json.dumps(matches)
 
@@ -166,7 +199,7 @@ class poolsys:
 			'-lossless', '0',
 			# lossless compression
 			# (now is lossy)
-			# '-compression_level', '6',
+			'-compression_level', '6',
 			'-qscale', '50',
 			# output to stdout
 			'pipe:'

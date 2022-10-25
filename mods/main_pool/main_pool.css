@@ -218,6 +218,19 @@ etype[dir_up]
 }
 
 
+etype[file]
+{
+	background-image: url('../../assets/file.svg');
+	/*filter: invert(1);*/
+}
+
+etype[novid]
+{
+	background-image: url('../../assets/vid.svg');
+	filter: brightness(0.5);
+}
+
+
 
 
 
@@ -259,7 +272,7 @@ mpool[grid] flist flist-entry etype
 }
 
 
-mpool[grid] flist flist-entry ename
+mpool[grid] flist flist-entry ename, mpool[grid] flist flist-entry a.ename
 {
 	/*display: flex;*/
 	 display: block; 
@@ -287,6 +300,19 @@ mpool flist flist-entry.media_entry_selected
 {
 	outline: 1px solid cyan;
 }
+
+
+mpool[grid] flist flist-entry.arrow_cycle_hint
+{
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 5px;
+}
+
+
+
+
+
+
 
 
 mpool dlq .dlq_item.dlq_item_processed

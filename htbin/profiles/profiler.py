@@ -121,3 +121,27 @@ def profiler_save_access_list(prms=None, dt=None, sv=None):
 	cl_db_path.write_bytes(json.dumps(clearance_db).encode())
 
 	return 'clearance db save ok'
+
+
+def spawn_match_struct(prms=None, dt=None, sv=None):
+	from pathlib import Path
+	import json
+
+	sysroot = Path(json.loads((sv['root'] / 'db' / 'root.json').read_bytes())['root_path'])
+	# check whether the team exists or nah
+	if not (sysroot / prms['team']).is_dir():
+		return json.dumps({'status': 'fail', 'reason': 'requested team does not exist', 'details': str(sysroot / prms['team'])})
+
+	# now check for duplicate folders
+	if (sysroot / prms['team'] / prms['newfld']).is_dir():
+		return json.dumps({'status': 'fail', 'reason': 'duplicate names', 'details': str(sysroot / prms['team'] / prms['newfld'])})
+
+	# finally, create the folder WITH subfolders n shit
+	tgt_match = (sysroot / prms['team'] / prms['newfld'])
+	tgt_match.mkdir()
+	(tgt_match / 'video').mkdir()
+	(tgt_match / 'photo').mkdir()
+	(tgt_match / 'moments').mkdir()
+	(tgt_match / 'pressa').mkdir()
+
+	return json.dumps({'status': 'all_good'})
