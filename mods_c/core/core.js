@@ -261,6 +261,71 @@ window.bootlegger.core.py_send = async function(prms={}, payload='', load_as='te
 }
 
 
+// prms: URL parameters to pass to the CGI script
+// payload: payload to send. Has to be proper shit and not raw objects
+// as: treat response as text/json/buffer
+window.bootlegger.core.py_send_fuck = async function(prms={}, payload='', load_as='text')
+{
+	// add auth token to the payload
+	prms['auth'] = window.localStorage.getItem('auth_token') || 'ftp';
+
+	// convert params to URL params
+	const urlParams = new URLSearchParams(prms);
+
+	// convert payload to BLOB
+	const pl = new Blob([payload], {type: 'text/plain'});
+
+	// exec...
+	return new Promise(function(resolve, reject){
+		fetch(`htbin/zip_dl.py?${urlParams.toString()}`, {
+			'headers': {
+				'accept': '*/*',
+				'cache-control': 'no-cache',
+				'pragma': 'no-cache'
+			},
+			'method': 'POST',
+			'body': pl,
+			'mode': 'cors',
+			'credentials': 'omit'
+		})
+		.then(async function(response) {
+			// print(response.status);
+			if (response.status == 404){
+				print('Failed to execute py SEND request');
+				return
+			}
+
+			// honestly, FUCKOFF
+			// this is just fine
+			const bin = new Uint8Array(await response.arrayBuffer())
+
+			// todo: for now use try catch
+			// come up with something adequate later....
+			try {
+				if (load_as == 'text'){
+					resolve(lizard.UTF8ArrToStr(bin))
+					return
+				}
+				if (load_as == 'json'){
+					resolve(JSON.parse(lizard.UTF8ArrToStr(bin)))
+					return
+				}
+				if (load_as == 'buffer'){
+					resolve(bin)
+					return
+				}
+				console.warn('PyGet Warn: falling back to default data type');
+				resolve(lizard.UTF8ArrToStr(bin))
+
+			} catch (error) {
+				console.warn('PyGet Error', lizard.UTF8ArrToStr(bin), error)
+			}
+
+		});
+	});
+}
+
+
 // determine whether the user is logged in or not
 window.bootlegger.core.profiler = function()
 {

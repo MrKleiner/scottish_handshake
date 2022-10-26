@@ -182,7 +182,7 @@ window.bootlegger.ft.process_upload_queue = async function()
 
 
 
-window.bootlegger.ft.process_download_queue = async function()
+window.bootlegger.ft.process_download_queue_old = async function()
 {
 	const zip = new JSZip();
 
@@ -218,5 +218,37 @@ window.bootlegger.ft.process_download_queue = async function()
 }
 
 
+window.bootlegger.ft.process_download_queue = async function()
+{
+	// const zip = new JSZip();
+
+	// zip.file("Hello.txt", "Hello World\n");
+
+	// const img = zip.folder("images");
+	// img.file("smile.gif", imgData, {base64: true});
+	pld = []
+	for (var dl_med of window.bootlegger.main_pool.media_selection){
+		// pld.push(dl_med.getAttrbute('flpath'))
+	}
+	const dl_link = await window.bootlegger.core.py_send_fuck(
+		{
+			'action': 'gen_file',
+		},
+		JSON.stringify(window.bootlegger.main_pool.media_selection, '\t', 4),
+		'text'
+	)
+	print('got dl filename', dl_link)
+	var element = $('<a download="photos.zip"></a>');
+	element.attr('href', `htbin/zip_dl.py?action=give_file&dlink=${dl_link}`);
+	// element.style.display = 'none';
+	// document.body.append('append');
+	element[0].click();
+	element.remove();
+	// zip.file(dl_med.split('/').at(-1), media_buffer);
+	// $(`mpool dlq #dlq_list .dlq_item[media_path="${dl_med}"]`).addClass('dlq_item_processed');
+	$(`mpool dlq #dlq_list .dlq_item`).remove();
+	$('flist-entry').removeClass('media_entry_selected');
+	window.bootlegger.main_pool.media_selection = [];
+}
 
 
