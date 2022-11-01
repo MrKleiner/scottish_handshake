@@ -139,9 +139,10 @@ def spawn_match_struct(prms=None, dt=None, sv=None):
 	# finally, create the folder WITH subfolders n shit
 	tgt_match = (sysroot / prms['team'] / prms['newfld'])
 	tgt_match.mkdir()
-	(tgt_match / 'video').mkdir()
-	(tgt_match / 'photo').mkdir()
-	(tgt_match / 'moments').mkdir()
-	(tgt_match / 'pressa').mkdir()
+	(tgt_match / 'video').mkdir(exist_ok=True)
+	(tgt_match / 'photo').mkdir(exist_ok=True)
+	(tgt_match / 'moments').mkdir(exist_ok=True)
+	(tgt_match / 'pressa').mkdir(exist_ok=True)
+	(tgt_match / 'photosession').mkdir(exist_ok=True)
 
 	return json.dumps({'status': 'all_good'})
