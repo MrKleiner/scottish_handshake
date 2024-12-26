@@ -1,2 +1,3 @@
-﻿compiler_conf.json
-__pycache__
+﻿__pycache__
+/htbin_c
+htbin_src/jag.py
