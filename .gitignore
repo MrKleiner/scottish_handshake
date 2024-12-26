@@ -1,3 +1,5 @@
 ﻿__pycache__
-/htbin_c
-htbin_src/jag.py
+/src/wsys/jag/proto
+/src/wsys/jag/.git
+/src/wsys/jag/old_complex
+/src/wsys/jag/.gitignore
