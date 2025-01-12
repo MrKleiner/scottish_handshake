@@ -28,7 +28,9 @@ class AccessRule:
 		self.immediate_only = immediate_only
 
 	def __repr__(self):
-		return f"AccessRule(read={self.read}, write={self.write}, prohibit={self.prohibit}, pattern={self.pattern})"
+		return (
+			'WaferACSRule()'
+		)
 
 
 def smart_add(self, rule):
@@ -72,11 +74,21 @@ class AccessGroup:
 		return f"AccessGroup(group_name={self.group_name}, rules={self.rules})"
 
 
-class User:
-	def __init__(self, username, iddqd=False):
+class WaferUser:
+	def __init__(self, userid, username='', iddqd=False):
+		# This user's unique ID
+		self.userid = userid
+
+		# Display name for this user
 		self.username = username
-		self.rules = []  # List of AccessRule objects for this user
-		self.groups = []  # List of groups this user belongs to
+
+		# List of AccessRule objects for this user
+		self.rules = []
+
+		# List of groups this user belongs to
+		self.groups = []
+
+		# Godmode
 		self.iddqd = iddqd
 
 	def add_rule(self, rule):
@@ -91,10 +103,17 @@ class User:
 		for group in self.groups:
 			for rule in group.get_rules():
 				combined_rules.append(rule)
-		return combined_rules
+		return tuple(combined_rules)
 
 	def __repr__(self):
-		return f"User(username={self.username}, rules={self.rules}, groups={self.groups})"
+		return (
+			'<WaferUser>('
+			f'{self.userid} | '
+			f'{self.username} | '
+			f'{self.iddqd} | '
+			f'[{self.rules}]'
+			')'
+		)
 
 
 class AccessSystem:
@@ -106,7 +125,7 @@ class AccessSystem:
 
 	def get_access(self, user, requested_path):
 		# Step 1: Get the requested path by the user
-		devprint(f"User {user.username} requested access to {requested_path}")
+		devprint(f'User {user.username} requested access to {requested_path}')
 
 		if user.iddqd:
 			return (True, True,)
@@ -133,7 +152,7 @@ class AccessSystem:
 				return (access.read, access.write,)
 			"""
 		else:
-			devprint(f"Access denied for {user.username} on {requested_path}")
+			devprint(f'Access denied for {user.username} on {requested_path}')
 			return (False, False,)
 
 	@staticmethod
@@ -149,28 +168,28 @@ class AccessSystem:
 			return False
 
 		# Get the base directory from the pattern
-		base_dir = base_pattern.rstrip("/*")
-		base_depth = base_dir.count("/") + 1  # Depth of the base directory
+		base_dir = base_pattern.rstrip('/*')
+		base_depth = base_dir.count('/') + 1  # Depth of the base directory
 
 		# Calculate the depth of the requested path
-		requested_depth = requested_path.count("/")
+		requested_depth = requested_path.count('/')
 
 		# Immediate children must have exactly one more level than the base
 		return requested_depth == base_depth
 
 	def validate_access(self, requested_path, user_rules):
 		for rule in user_rules:
-			# If the rule's pattern ends with "/*", check for immediate child
-			if rule.pattern.endswith("/*") and rule.immediate_only:
+			# If the rule's pattern ends with '/*', check for immediate child
+			if rule.pattern.endswith('/*') and rule.immediate_only:
 				if self.is_immediate_child(requested_path, rule.pattern):
-					devprint(f"Access granted for {requested_path} based on rule: {rule}")
+					devprint(f'Access granted for {requested_path} based on rule: {rule}')
 					return rule
 			# Otherwise, just check with fnmatch
 			elif fnmatch.fnmatch(requested_path, rule.pattern):
-				devprint(f"Access granted for {requested_path} based on rule: {rule}")
+				devprint(f'Access granted for {requested_path} based on rule: {rule}')
 				return rule
 
-		devprint(f"No matching rule found for {requested_path}")
+		devprint(f'No matching rule found for {requested_path}')
 		return False
 
 
@@ -280,8 +299,8 @@ def adv_test():
 	prohibit_rule = AccessRule(prohibit=True, pattern="/root/prohibited/*")
 
 	# Create users
-	user1 = User("alice")
-	user2 = User("bob")
+	user1 = WaferUser("alice")
+	user2 = WaferUser("bob")
 
 	# Create access groups
 	admin_group = AccessGroup("admin")
@@ -326,7 +345,7 @@ def adv_test():
 	# =============
 
 	# Photo user
-	photo_usr = User('dnipro_photo')
+	photo_usr = WaferUser('dnipro_photo')
 	# Photo RW
 	photo_usr.add_rule(AccessRule(
 		read=True,
@@ -339,7 +358,7 @@ def adv_test():
 	))
 
 	# Video user
-	video_usr = User('dnipro_video')
+	video_usr = WaferUser('dnipro_video')
 	# Video RW
 	video_usr.add_rule(AccessRule(
 		read=True,
